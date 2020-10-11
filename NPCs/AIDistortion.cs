@@ -9,12 +9,6 @@ namespace AIDistort.NPCs
 {
 	public class AIDistortion : GlobalNPC
 	{
-        #region TODO
-        //Mod Icon
-        //GitHub Repo
-        //Final Fixes
-        //Publish
-        #endregion
         private int aiDelayTimer;
         private bool aiChanged;
         public override bool InstancePerEntity => true;
@@ -23,6 +17,7 @@ namespace AIDistort.NPCs
             20,
             27,
             28,
+            37,
             51,
             52,
             53
@@ -39,6 +34,20 @@ namespace AIDistort.NPCs
             -9,
             -10
         };
+        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        {
+            bool randomShop = GetInstance<AIConfig>().ShopRandomBoolean;
+            int priceScale = GetInstance<AIConfig>().ShopRandomScale;
+            if (randomShop)
+            {
+                for (int i = 0; i < 49; i++)
+                {
+                    shop.item[nextSlot].SetDefaults(Main.rand.Next(0, 3630));
+                    shop.item[nextSlot].value = Main.rand.Next(0, 1000000 * priceScale);
+                    nextSlot++;
+                }
+            }
+        }
         public override void AI(NPC npc)
         {
             bool doScramble = GetInstance<AIConfig>().AIScrambleBoolean;
@@ -53,20 +62,30 @@ namespace AIDistort.NPCs
             //Common Slime: if (npc.type == NPCID.BlueSlime || npc.type == NPCID.GreenSlime || npc.type == NPCID.PurpleSlime || npc.type == NPCID.YellowSlime || npc.type == NPCID.RedSlime || npc.type == NPCID.BlackSlime || npc.type == NPCID.JungleSlime || npc.type == NPCID.BabySlime || npc.type == NPCID.Pinky)
             //Dangerous AI Styles: if (npc.aiStyle != 20 || npc.aiStyle != 27 || npc.aiStyle != 28 || npc.aiStyle != 51 || npc.aiStyle != 52 || npc.aiStyle != 53)
             //Gameplay AI Styles: if (npc.aiStyle != 6 || npc.aiStyle != 37 || npc.aiStyle != 54 || npc.aiStyle != 77 || npc.aiStyle != 60 || npc.aiStyle != 84 || npc.aiStyle != 105 || npc.aiStyle != 106)
-            /*
+
             #region npc.ai[#]
+            /*
             float npc.ai[0] = npc.ai[0];
             float npc.ai[1] = npc.ai[1];
             float npc.ai[2] = npc.ai[2];
             float npc.ai[3] = npc.ai[3];
+            }*/
             #endregion
             #region npc.localAI[#]
+            /*
             float aiL0 = npc.localAI[0];
             float aiL1 = npc.localAI[1];
             float aiL2 = npc.localAI[2];
             float aiL3 = npc.localAI[3];
-            #endregion
             }*/
+            #endregion
+            if (AIWorld.butcher)
+            {
+                npc.life = -9999;
+                npc.checkDead();
+                AIWorld.butcher = false;
+            }
+
             if (!civilianScramble)
             {
                 if (crashPrevent)
@@ -177,55 +196,59 @@ namespace AIDistort.NPCs
                         * 6) Set to 0
                         * 7) Set equal to npc.ai[2]
                         }*/
-                        int uno = Main.rand.Next(7);
-                        if (uno == 0)
+                        if (!commonSlime.Contains(npc.type))
                         {
-                            //1) Multiply by either -1 or 1
-                            npc.ai[1] *= Main.rand.Next(-2, 2);
-                        }
-                        if (uno == 1)
-                        {
-                            //2) to the root of npc.ai[0]
-                            //Scalie: express it as a fractional exponent instead and use Math.Pow
-                            npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
-                        }
-                        if (uno == 2)
-                        {
-                            //3) Multiply by the remainder of npc.ai[2] divided by 17
-                            npc.ai[1] *= npc.ai[2] % 17;
-                        }
-                        if (uno == 3)
-                        {
-                            //4) Add by the difference of npc.ai[3] and itself
-                            npc.ai[1] += npc.ai[3] - npc.ai[1];
-                        }
-                        if (uno == 4)
-                        {
-                            //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
-                            npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
-                        }
-                        if (uno == 5)
-                        {
-                            if (resetRare)
+                            int uno = Main.rand.Next(7);
+                            if (uno == 0)
                             {
-                                if (Main.rand.Next(9) == 0)
+                                //1) Multiply by either -1 or 1
+                                npc.ai[1] *= Main.rand.Next(-2, 2);
+                            }
+                            if (uno == 1)
+                            {
+                                //2) to the root of npc.ai[0]
+                                //Scalie: express it as a fractional exponent instead and use Math.Pow
+                                npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
+                            }
+                            if (uno == 2)
+                            {
+                                //3) Multiply by the remainder of npc.ai[2] divided by 17
+                                npc.ai[1] *= npc.ai[2] % 17;
+                            }
+                            if (uno == 3)
+                            {
+                                //4) Add by the difference of npc.ai[3] and itself
+                                npc.ai[1] += npc.ai[3] - npc.ai[1];
+                            }
+                            if (uno == 4)
+                            {
+                                //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
+                                npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
+                            }
+                            if (uno == 5)
+                            {
+                                if (resetRare)
                                 {
-                                    //6) set to 0
+                                    if (Main.rand.Next(9) == 0)
+                                    {
+                                        //6) set to 0
+                                        npc.ai[1] = 0;
+                                    }
+                                }
+                                else
+                                {
                                     npc.ai[1] = 0;
                                 }
                             }
-                            else
+                            if (uno == 6)
                             {
-                                npc.ai[1] = 0;
+                                //7) Set equal to npc.ai[2]
+                                npc.ai[1] = npc.ai[2];
                             }
-                        }
-                        if (uno == 6)
-                        {
-                            //7) Set equal to npc.ai[2]
-                            npc.ai[1] = npc.ai[2];
+
+                            #endregion
                         }
 
-                        #endregion
                         #region npc.ai[2] Scramble
                         /* AI 2:
                         * 1) Divide by either -2 or 2
@@ -459,55 +482,58 @@ namespace AIDistort.NPCs
                     * 6) Set to 0
                     * 7) Set equal to npc.ai[2]
                     }*/
-                    int uno = Main.rand.Next(7);
-                    if (uno == 0)
+                    if (!commonSlime.Contains(npc.type))
                     {
-                        //1) Multiply by either -1 or 1
-                        npc.ai[1] *= Main.rand.Next(-2, 2);
-                    }
-                    if (uno == 1)
-                    {
-                        //2) to the root of npc.ai[0]
-                        //Scalie: express it as a fractional exponent instead and use Math.Pow
-                        npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
-                    }
-                    if (uno == 2)
-                    {
-                        //3) Multiply by the remainder of npc.ai[2] divided by 17
-                        npc.ai[1] *= npc.ai[2] % 17;
-                    }
-                    if (uno == 3)
-                    {
-                        //4) Add by the difference of npc.ai[3] and itself
-                        npc.ai[1] += npc.ai[3] - npc.ai[1];
-                    }
-                    if (uno == 4)
-                    {
-                        //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
-                        npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
-                    }
-                    if (uno == 5)
-                    {
-                        if (resetRare)
+                        int uno = Main.rand.Next(7);
+                        if (uno == 0)
                         {
-                            if (Main.rand.Next(9) == 0)
+                            //1) Multiply by either -1 or 1
+                            npc.ai[1] *= Main.rand.Next(-2, 2);
+                        }
+                        if (uno == 1)
+                        {
+                            //2) to the root of npc.ai[0]
+                            //Scalie: express it as a fractional exponent instead and use Math.Pow
+                            npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
+                        }
+                        if (uno == 2)
+                        {
+                            //3) Multiply by the remainder of npc.ai[2] divided by 17
+                            npc.ai[1] *= npc.ai[2] % 17;
+                        }
+                        if (uno == 3)
+                        {
+                            //4) Add by the difference of npc.ai[3] and itself
+                            npc.ai[1] += npc.ai[3] - npc.ai[1];
+                        }
+                        if (uno == 4)
+                        {
+                            //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
+                            npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
+                        }
+                        if (uno == 5)
+                        {
+                            if (resetRare)
                             {
-                                //6) set to 0
+                                if (Main.rand.Next(9) == 0)
+                                {
+                                    //6) set to 0
+                                    npc.ai[1] = 0;
+                                }
+                            }
+                            else
+                            {
                                 npc.ai[1] = 0;
                             }
                         }
-                        else
+                        if (uno == 6)
                         {
-                            npc.ai[1] = 0;
+                            //7) Set equal to npc.ai[2]
+                            npc.ai[1] = npc.ai[2];
                         }
-                    }
-                    if (uno == 6)
-                    {
-                        //7) Set equal to npc.ai[2]
-                        npc.ai[1] = npc.ai[2];
-                    }
 
-                    #endregion
+                        #endregion
+                    }
                     #region npc.ai[2] Scramble
                     /* AI 2:
                     * 1) Divide by either -2 or 2
@@ -745,55 +771,58 @@ namespace AIDistort.NPCs
                         * 6) Set to 0
                         * 7) Set equal to npc.ai[2]
                         }*/
-                        int uno = Main.rand.Next(7);
-                        if (uno == 0)
+                        if (!commonSlime.Contains(npc.type))
                         {
-                            //1) Multiply by either -1 or 1
-                            npc.ai[1] *= Main.rand.Next(-2, 2);
-                        }
-                        if (uno == 1)
-                        {
-                            //2) to the root of npc.ai[0]
-                            //Scalie: express it as a fractional exponent instead and use Math.Pow
-                            npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
-                        }
-                        if (uno == 2)
-                        {
-                            //3) Multiply by the remainder of npc.ai[2] divided by 17
-                            npc.ai[1] *= npc.ai[2] % 17;
-                        }
-                        if (uno == 3)
-                        {
-                            //4) Add by the difference of npc.ai[3] and itself
-                            npc.ai[1] += npc.ai[3] - npc.ai[1];
-                        }
-                        if (uno == 4)
-                        {
-                            //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
-                            npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
-                        }
-                        if (uno == 5)
-                        {
-                            if (resetRare)
+                            int uno = Main.rand.Next(7);
+                            if (uno == 0)
                             {
-                                if (Main.rand.Next(9) == 0)
+                                //1) Multiply by either -1 or 1
+                                npc.ai[1] *= Main.rand.Next(-2, 2);
+                            }
+                            if (uno == 1)
+                            {
+                                //2) to the root of npc.ai[0]
+                                //Scalie: express it as a fractional exponent instead and use Math.Pow
+                                npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
+                            }
+                            if (uno == 2)
+                            {
+                                //3) Multiply by the remainder of npc.ai[2] divided by 17
+                                npc.ai[1] *= npc.ai[2] % 17;
+                            }
+                            if (uno == 3)
+                            {
+                                //4) Add by the difference of npc.ai[3] and itself
+                                npc.ai[1] += npc.ai[3] - npc.ai[1];
+                            }
+                            if (uno == 4)
+                            {
+                                //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
+                                npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
+                            }
+                            if (uno == 5)
+                            {
+                                if (resetRare)
                                 {
-                                    //6) set to 0
+                                    if (Main.rand.Next(9) == 0)
+                                    {
+                                        //6) set to 0
+                                        npc.ai[1] = 0;
+                                    }
+                                }
+                                else
+                                {
                                     npc.ai[1] = 0;
                                 }
                             }
-                            else
+                            if (uno == 6)
                             {
-                                npc.ai[1] = 0;
+                                //7) Set equal to npc.ai[2]
+                                npc.ai[1] = npc.ai[2];
                             }
-                        }
-                        if (uno == 6)
-                        {
-                            //7) Set equal to npc.ai[2]
-                            npc.ai[1] = npc.ai[2];
-                        }
 
-                        #endregion
+                            #endregion
+                        }
                         #region npc.ai[2] Scramble
                         /* AI 2:
                         * 1) Divide by either -2 or 2
@@ -1027,55 +1056,58 @@ namespace AIDistort.NPCs
                     * 6) Set to 0
                     * 7) Set equal to npc.ai[2]
                     }*/
-                    int uno = Main.rand.Next(7);
-                    if (uno == 0)
+                    if (!commonSlime.Contains(npc.type))
                     {
-                        //1) Multiply by either -1 or 1
-                        npc.ai[1] *= Main.rand.Next(-2, 2);
-                    }
-                    if (uno == 1)
-                    {
-                        //2) to the root of npc.ai[0]
-                        //Scalie: express it as a fractional exponent instead and use Math.Pow
-                        npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
-                    }
-                    if (uno == 2)
-                    {
-                        //3) Multiply by the remainder of npc.ai[2] divided by 17
-                        npc.ai[1] *= npc.ai[2] % 17;
-                    }
-                    if (uno == 3)
-                    {
-                        //4) Add by the difference of npc.ai[3] and itself
-                        npc.ai[1] += npc.ai[3] - npc.ai[1];
-                    }
-                    if (uno == 4)
-                    {
-                        //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
-                        npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
-                    }
-                    if (uno == 5)
-                    {
-                        if (resetRare)
+                        int uno = Main.rand.Next(7);
+                        if (uno == 0)
                         {
-                            if (Main.rand.Next(9) == 0)
+                            //1) Multiply by either -1 or 1
+                            npc.ai[1] *= Main.rand.Next(-2, 2);
+                        }
+                        if (uno == 1)
+                        {
+                            //2) to the root of npc.ai[0]
+                            //Scalie: express it as a fractional exponent instead and use Math.Pow
+                            npc.ai[1] = (float)Math.Pow(npc.ai[1], 1 / npc.ai[0]);
+                        }
+                        if (uno == 2)
+                        {
+                            //3) Multiply by the remainder of npc.ai[2] divided by 17
+                            npc.ai[1] *= npc.ai[2] % 17;
+                        }
+                        if (uno == 3)
+                        {
+                            //4) Add by the difference of npc.ai[3] and itself
+                            npc.ai[1] += npc.ai[3] - npc.ai[1];
+                        }
+                        if (uno == 4)
+                        {
+                            //5) Subtract by the product of npc.ai[0] by the numbers -999 to 999
+                            npc.ai[1] -= npc.ai[0] * Main.rand.Next(-1000, 1000);
+                        }
+                        if (uno == 5)
+                        {
+                            if (resetRare)
                             {
-                                //6) set to 0
+                                if (Main.rand.Next(9) == 0)
+                                {
+                                    //6) set to 0
+                                    npc.ai[1] = 0;
+                                }
+                            }
+                            else
+                            {
                                 npc.ai[1] = 0;
                             }
                         }
-                        else
+                        if (uno == 6)
                         {
-                            npc.ai[1] = 0;
+                            //7) Set equal to npc.ai[2]
+                            npc.ai[1] = npc.ai[2];
                         }
-                    }
-                    if (uno == 6)
-                    {
-                        //7) Set equal to npc.ai[2]
-                        npc.ai[1] = npc.ai[2];
-                    }
 
-                    #endregion
+                        #endregion
+                    }
                     #region npc.ai[2] Scramble
                     /* AI 2:
                     * 1) Divide by either -2 or 2
@@ -1240,6 +1272,14 @@ namespace AIDistort.NPCs
             {
                 npc.ai[1] = Main.rand.Next(0, 3930);
             }
+        }
+        public override bool CheckDead(NPC npc)
+        {
+            if (AIWorld.butcher)
+            {
+                return true;
+            }
+            return base.CheckDead(npc);
         }
     }
 }

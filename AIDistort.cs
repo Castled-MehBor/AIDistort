@@ -7,12 +7,14 @@ namespace AIDistort
 	{
         public static AIDistort Instance;
         internal static ModHotKey AIScrambleHotKey;
+        internal static ModHotKey ButcherHotKey;
         static internal AIDistort instance;
         internal static AIConfig modConfig;
         public override void Load()
         {
             Instance = this;
-            AIScrambleHotKey = RegisterHotKey("AI Scramble Toggle Hotkey", "P");
+            AIScrambleHotKey = RegisterHotKey("AI Scramble Toggle", "P");
+            ButcherHotKey = RegisterHotKey("Butcher", "T");
 
             #region Config Translations
             ModTranslation text = CreateTranslation("AIScrambleConfigLabel");
@@ -116,8 +118,8 @@ namespace AIDistort
             AddTranslation(text);
 
             text = CreateTranslation("AIStyleRandomDelayConfigLabel");
-            text.SetDefault("AI Style Randomizer Delay");
-            text.AddTranslation(GameCulture.French, "Délai de Randomisation de Style AI");
+            text.SetDefault("[Experimental] - AI Style Randomizer Delay");
+            text.AddTranslation(GameCulture.French, "[Expérimental] - Délai de Randomisation de Style AI");
             AddTranslation(text);
 
             text = CreateTranslation("AIStyleRandomDelayConfigTooltip");
@@ -133,6 +135,26 @@ namespace AIDistort
             text = CreateTranslation("PrideConfigTooltip");
             text.SetDefault("Every NPC will have a rainbow color");
             text.AddTranslation(GameCulture.French, "Tous les PNJs aura une couleur arc-en-ciel");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShopConfigLabel");
+            text.SetDefault("Randomized NPC Shops");
+            text.AddTranslation(GameCulture.French, "Boutiques de PNJ aléatoires");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShopConfigTooltip");
+            text.SetDefault("Town NPCs will sell random vanilla items for randomized prices");
+            text.AddTranslation(GameCulture.French, "Les PNJ de la ville vendront des objets vanille aléatoires pour des prix aléatoires");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShopTwoConfigLabel");
+            text.SetDefault("Randomized NPC Shops Price Scale");
+            text.AddTranslation(GameCulture.French, "Échelle de prix des boutiques de PNJ aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShopTwoConfigTooltip");
+            text.SetDefault("Scales the prices of randomized shops if the above config is enabled");
+            text.AddTranslation(GameCulture.French, "Met à l'échelle les prix des magasins aléatoires si la configuration ci-dessus est activée");
             AddTranslation(text);
 
             /*

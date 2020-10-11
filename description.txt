@@ -36,3 +36,4 @@ Changelog:
 
 v.0.1 - Release
 v.0.1.1 - Added mod icon
+v.0.1.2 - Added NPC Shop Randomizer and Scale config, added Butcher Hotkey and added The Destroyer AI to "Crash Prevention"

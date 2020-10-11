@@ -29,6 +29,17 @@ namespace AIDistort
         public bool TownNPCBoolean;
 
         [DefaultValue(false)]
+        [Label("$Mods.AIDistort.ShopConfigLabel")]
+        [Tooltip("$Mods.AIDistort.ShopConfigTooltip")]
+        public bool ShopRandomBoolean;
+
+        [Range(0, 20)]
+        [DefaultValue(1)]
+        [Label("$Mods.AIDistort.ShopTwoConfigLabel")]
+        [Tooltip("$Mods.AIDistort.ShopTwoConfigTooltip")]
+        public int ShopRandomScale;
+
+        [DefaultValue(false)]
         [Label("$Mods.AIDistort.SlimeConfigLabel")]
         [Tooltip("$Mods.AIDistort.SlimeConfigTooltip")]
         public bool SlimeBoxBoolean;

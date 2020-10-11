@@ -98,6 +98,10 @@ namespace AIDistort
                     #endregion
                 }
             }
+            if (AIDistort.ButcherHotKey.JustReleased && !AIWorld.butcher)
+            {
+                AIWorld.butcher = true;
+            }
         }
     }
 }
