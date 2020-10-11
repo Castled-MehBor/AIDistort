@@ -71,8 +71,8 @@ namespace AIDistort
             AddTranslation(text);
 
             text = CreateTranslation("CrashPreventConfigTooltip");
-            text.SetDefault("AI Scrambler crashes the game for certain NPCs. Turn this on to prevent AI Scrambler from affecting any NPC with said AI.");
-            text.AddTranslation(GameCulture.French, "AI Scrambler plante le jeu pour certains PNJs. Activer cette option pour empêcher AI Scrambler d'affecter un PNJ avec ladite IA.");
+            text.SetDefault("AI Scrambler crashes the game for certain AI Styles. Turn this on to prevent AI Scrambler from affecting any NPC with said AI.");
+            text.AddTranslation(GameCulture.French, "AI Scrambler plante le jeu pour certains Types d'IAs. Activer cette option pour empêcher AI Scrambler d'affecter un PNJ avec ladite IA.");
             AddTranslation(text);
 
             text = CreateTranslation("ScramblerTwoConfigLabel");
