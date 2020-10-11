@@ -31,3 +31,8 @@ Frame Lock: Set a value to prevent any AI modification from occuring if the curr
 
 AI Scramble Hotkey: If granted permission in a server, you can use this hotkey to immediately toggle AI Scramble. There is a config to enable or disable permission for everyone in the server.
 This hotkey has a six second cooldown, however you can disable this as well in the configs.
+
+Changelog:
+
+v.0.1 - Release
+v.0.1.1 - Added mod icon
