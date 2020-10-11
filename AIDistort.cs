@@ -5,13 +5,13 @@ namespace AIDistort
 {
 	public class AIDistort : Mod
 	{
-        public static Mod Instance;
+        public static AIDistort Instance;
         internal static ModHotKey AIScrambleHotKey;
         static internal AIDistort instance;
         internal static AIConfig modConfig;
         public override void Load()
         {
-            instance = this;
+            Instance = this;
             AIScrambleHotKey = RegisterHotKey("AI Scramble Toggle Hotkey", "P");
 
             #region Config Translations
@@ -172,6 +172,7 @@ namespace AIDistort
         
         public override void Unload()
         {
+            Instance = null;
             modConfig = null;
         }
     }
