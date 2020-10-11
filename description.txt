@@ -1,0 +1,15 @@
+This mod utilises a completely randomized formula to create a completely chaotic AI set for every NPC. 
+This mod also has configs to change your experience, as well as some configuration to machine performance, such as setting a value to stop AI Scrambling when your machine runs at “X” FPS or lower, as well as disabling the Scrambler for aiStyles that crash the game when scrambled.
+You can turn slimes into sentient loot boxes, make Queen Bee break-dance, have Skeletron and Skeletron Prime constantly shed their arms, make biome mimics participate in choir, have Betsy fly without wings, and so much more.
+Expect six things when you use this mod: 
+
+1) Complete Chaos
+2) A LOT of sound effects
+3) Severe NPC spasms
+4) A lot of implosion 
+5) Nigh-impossible bosses
+6) Hyper-active slimes
+
+Unfortunately, this mod does not affect certain aiStyles, such as Figher or Bat AI, however it does have some cross-mod compatibility, though not intended. 
+If you’re wondering why some bosses from other mods don’t have their AI scrambled, it’s most likely due to them using different code.
+Have fun, and good luck.

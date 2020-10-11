@@ -1,0 +1,3 @@
+displayName = Castled's AI Scrambler
+author = Castled
+version = 0.1
