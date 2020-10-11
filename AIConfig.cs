@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
+using Microsoft.Xna.Framework;
 
 namespace AIDistort
 {
@@ -31,6 +32,24 @@ namespace AIDistort
         [Label("$Mods.AIDistort.SlimeConfigLabel")]
         [Tooltip("$Mods.AIDistort.SlimeConfigTooltip")]
         public bool SlimeBoxBoolean;
+
+        [DefaultValue(false)]
+        [Label("$Mods.AIDistort.PrideConfigLabel")]
+        [Tooltip("$Mods.AIDistort.PrideConfigTooltip")]
+        public bool PrideBoolean;
+
+        [Header("$Mods.AIDistort.AIStyleRandomConfig")]
+
+        [DefaultValue(false)]
+        [Label("$Mods.AIDistort.AIStyleRandomConfigLabel")]
+        [Tooltip("$Mods.AIDistort.AIStyleRandomConfigTooltip")]
+        public bool AIStyleRandomizer;
+
+        [Range(0, 240)]
+        [DefaultValue(0)]
+        [Label("$Mods.AIDistort.AIStyleRandomDelayConfigLabel")]
+        [Tooltip("$Mods.AIDistort.AIStyleRandomDelayConfigTooltip")]
+        public int AIStyleRandomizerDelay;
 
         [Header("$Mods.AIDistort.MachinePerformanceConfig")]
 

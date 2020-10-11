@@ -95,6 +95,46 @@ namespace AIDistort
             text.AddTranslation(GameCulture.French, "Les geleés 'communs' deviendront désormais des coffres à butin, permettant de déposer n'importe quel objet vanille");
             AddTranslation(text);
 
+            text = CreateTranslation("SlimeConfigLabel");
+            text.SetDefault("Loot Box Slimes");
+            text.AddTranslation(GameCulture.French, "Geleés des Boîte à butin");
+            AddTranslation(text);
+
+            text = CreateTranslation("SlimeConfigTooltip");
+            text.SetDefault("'Common' Slimes will now become loot boxes, being able to drop any vanilla item");
+            text.AddTranslation(GameCulture.French, "Les geleés 'communs' deviendront désormais des coffres à butin, permettant de déposer n'importe quel objet vanille");
+            AddTranslation(text);
+
+            text = CreateTranslation("AIStyleRandomConfigLabel");
+            text.SetDefault("AI Style Randomizer");
+            text.AddTranslation(GameCulture.French, "Randomiseur de Style AI");
+            AddTranslation(text);
+
+            text = CreateTranslation("AIStyleRandomConfigTooltip");
+            text.SetDefault("Randomizes the AI Style of every NPC");
+            text.AddTranslation(GameCulture.French, "Randomiser le style IA de tous les PNJs");
+            AddTranslation(text);
+
+            text = CreateTranslation("AIStyleRandomDelayConfigLabel");
+            text.SetDefault("AI Style Randomizer Delay");
+            text.AddTranslation(GameCulture.French, "Délai de Randomisation de Style AI");
+            AddTranslation(text);
+
+            text = CreateTranslation("AIStyleRandomDelayConfigTooltip");
+            text.SetDefault("Add a delay for the randomization of AI Styles, set to 0 to not change aiStyle more than once. This is measured in seconds.");
+            text.AddTranslation(GameCulture.French, "Ajoutez un délai pour la randomisation des Styles AI, mis à 0 pour ne pas changer aiStyle plus d'une fois. Ceci est mesuré en secondes.");
+            AddTranslation(text);
+
+            text = CreateTranslation("PrideConfigLabel");
+            text.SetDefault("Rainbow NPCs");
+            text.AddTranslation(GameCulture.French, "PNJs d'arc-en-ciel");
+            AddTranslation(text);
+
+            text = CreateTranslation("PrideConfigTooltip");
+            text.SetDefault("Every NPC will have a rainbow color");
+            text.AddTranslation(GameCulture.French, "Tous les PNJs aura une couleur arc-en-ciel");
+            AddTranslation(text);
+
             /*
             text = CreateTranslation("GameplayConfigLabel");
             text.SetDefault("Playthrough Mode");
@@ -121,6 +161,11 @@ namespace AIDistort
             text = CreateTranslation("MachinePerformanceConfig");
             text.SetDefault("[i:3649] [c/ff0090:Machine Performance Configuration]");
             text.AddTranslation(GameCulture.French, "[i:3649] [c/ff0090:Configuration de Performance de la Machine]");
+            AddTranslation(text);
+
+            text = CreateTranslation("AIStyleRandomConfig");
+            text.SetDefault("[i:3663] [c/ff0000:AI Style Randomizer Configuration]");
+            text.AddTranslation(GameCulture.French, "[i:3663] [c/ff0000:Configuration Randomiser de Style AI]");
             AddTranslation(text);
             #endregion
         }

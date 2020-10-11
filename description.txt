@@ -1,15 +1,33 @@
-This mod utilises a completely randomized formula to create a completely chaotic AI set for every NPC. 
-This mod also has configs to change your experience, as well as some configuration to machine performance, such as setting a value to stop AI Scrambling when your machine runs at “X” FPS or lower, as well as disabling the Scrambler for aiStyles that crash the game when scrambled.
-You can turn slimes into sentient loot boxes, make Queen Bee break-dance, have Skeletron and Skeletron Prime constantly shed their arms, make biome mimics participate in choir, have Betsy fly without wings, and so much more.
-Expect six things when you use this mod: 
+Please use the config menu if you want to change anything, as well as fix some performance issues.
 
-1) Complete Chaos
-2) A LOT of sound effects
-3) Severe NPC spasms
-4) A lot of implosion 
-5) Nigh-impossible bosses
-6) Hyper-active slimes
+Castled's AI Scrambler contains all of the tools you need to completely distort NPC AI, ranging from randomizing AI Styles, loot box slimes and distorting the AI itself.
+Some of the things you can do include:
 
-Unfortunately, this mod does not affect certain aiStyles, such as Figher or Bat AI, however it does have some cross-mod compatibility, though not intended. 
-If you’re wondering why some bosses from other mods don’t have their AI scrambled, it’s most likely due to them using different code.
-Have fun, and good luck.
+
+AI Scramble: Using a completely randomized formula, the AI itself will be completely distorted, resulting in some bizzare experiences.
+*NOTE: This IS NOT aiStyle change, but rather change to the AI itself. 
+This can lead to events such as overclocked Golem, breakdancing and constant arm shedding.
+This does not affect a handful of NPC's or AI Styles due to either hardcoding or just using unique code.
+Use the config menu to disable Town NPC's as well as dangerous AI Styles (that crash the game when scrambled) to be modified.
+
+
+**AI Style Randomization: This does exactly what you think it does: randomize the AI Style of every NPC. Instead of modifying the AI itself, this swaps the AI of an NPC with another style.
+You can add a delay in the configs for how often you want the AI Style to be randomized, however anything below 5 seconds will cause a lot of issues.
+This is automatically set to 0, meaning it will only be modified once for the NPC's lifetime.
+NOTE: This is NOT AI Scramble, but rather changing to the AI STYLE. 
+**This is separate from AI Scramble itself, and is highly unrecommended to be used alongside with.
+
+
+Loot Box Slimes: All slimes which can hold items will become sentient loot boxes, cycling through every vanilla item in the game, thus being able to drop any vanilla item in the game.
+*NOTE: This does not need the AI Scrambler config to be on, but it will be modified if it is.
+
+
+Rainbow NPCs: Feeling pride? Turn on this toggle to give every NPC a rainbow color effect similar to the Rainbow Slime.
+*NOTE: This does not need the AI Scrambler config to be on, but it might be modified if it is.
+
+
+Frame Lock: Set a value to prevent any AI modification from occuring if the current frame rate is at or below that level. This is very useful in case if the AI modification is causing machine issues.
+
+
+AI Scramble Hotkey: If granted permission in a server, you can use this hotkey to immediately toggle AI Scramble. There is a config to enable or disable permission for everyone in the server.
+This hotkey has a six second cooldown, however you can disable this as well in the configs.
