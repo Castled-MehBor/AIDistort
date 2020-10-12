@@ -13,6 +13,8 @@ namespace AIDistort
         public bool cbt;
         public bool clt;
         public bool rainbow;
+        public bool reset;
+        public bool resetClick;
         #region Recovery of color state
         public int recoverState;
         public Color oldShirt;
@@ -97,6 +99,36 @@ namespace AIDistort
                     recoverState = 0;
                 }
             }
+            if (reset)
+            {
+                player.delayUseItem = true;
+                player.hairColor = new Color(215, 90, 55);
+                player.skinColor = new Color(255, 125, 90);
+                player.eyeColor = new Color(105, 90, 75);
+                player.shirtColor = new Color(175, 165, 140);
+                player.underShirtColor = new Color(160, 180, 215);
+                player.pantsColor = new Color(255, 230, 175);
+                player.shoeColor = new Color(160, 105, 60);
+                if (player.Male)
+                    player.hair = 0;
+                else
+                    player.hair = 5;
+                if (Main.mouseLeft && !resetClick)
+                {
+                    resetClick = true;
+                    CycleClothingStyle(player);
+                }
+                if (Main.mouseLeftRelease && resetClick)
+                {
+                    resetClick = false;
+                }
+                if (Main.mouseRight)
+                {
+                    reset = false;
+                    player.delayUseItem = false;
+                    Main.NewText("Reset Finished!");
+                }
+            }
         }
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
@@ -176,7 +208,7 @@ namespace AIDistort
                 }
             }
             #region Randomize Player Hotkey
-            if (AIDistort.PlayerRandomize.JustPressed && !ModContent.GetInstance<PlayerRandomizeConfig>().NoRandom)
+            if (AIDistort.PlayerRandomize.JustPressed && !ModContent.GetInstance<PlayerRandomizeConfig>().NoRandom && !reset)
             {
                 ItemLoader.UpdateVanitySet(player);
                 if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeEyeColor)

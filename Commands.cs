@@ -140,4 +140,29 @@ namespace AIDistort
             }
         }
     }
+    class ResetChar : ModCommand //Reset Character to Original state
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
+
+        public override string Command
+        {
+            get { return "Reset"; }
+        }
+
+        public override string Description
+        {
+            get { return "Resets your character to it's original state"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            Player player = Main.player[Main.myPlayer];
+            player.GetModPlayer<PIPlayer>().reset = true;
+            Main.NewText("Left Click to change clothes style.");
+            Main.NewText("Right Click to stop");
+        }
+    }
 }
