@@ -37,3 +37,12 @@ Changelog:
 v.0.1 - Release
 v.0.1.1 - Added mod icon
 v.0.1.2 - Added NPC Shop Randomizer and Scale config, added Butcher Hotkey and added The Destroyer AI to "Crash Prevention"
+v.0.1.2.1 - Player update! 
+- Added four commands that change the player (go to the homepage for more information)
+
+- Added a hotkey and an entirely new config menu for randomizing your character's looks, like the "Randomize" button in character creation, however to change hair color and 
+to access exclusive haircuts, you have to get the stylist, and also defeat some other powerful creatures. (Check the Terraria Wiki for more information).
+
+- Removed redundant config tooltips
+
+- Changed AI Style delay config to an AI Style Lock.

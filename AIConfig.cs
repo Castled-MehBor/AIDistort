@@ -4,16 +4,17 @@ using Microsoft.Xna.Framework;
 
 namespace AIDistort
 {
-    public class AIConfig : ModConfig
+    [Label("$Mods.AIDistort.Configs.Title.NPCAIScramblerConfig")]
+    public class AIScramblerConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
-        public override void OnLoaded() => AIDistort.modConfig = this;
+        public override void OnLoaded() => AIDistort.AIConfig = this;
 
         [Header("$Mods.AIDistort.GeneralConfig")]
 
         [DefaultValue(true)]
         [Label("$Mods.AIDistort.AIScrambleConfigLabel")]
-        [Tooltip("$Mods.AIDistort.AIScrambleConfigTooltip")]
+        //[Tooltip("$Mods.AIDistort.AIScrambleConfigTooltip")]
         public bool AIScrambleBoolean;
 
         /*
@@ -25,7 +26,7 @@ namespace AIDistort
 
         [DefaultValue(false)]
         [Label("$Mods.AIDistort.TownNPCConfigLabel")]
-        [Tooltip("$Mods.AIDistort.TownNPCConfigTooltip")]
+        //[Tooltip("$Mods.AIDistort.TownNPCConfigTooltip")]
         public bool TownNPCBoolean;
 
         [DefaultValue(false)]
@@ -36,7 +37,7 @@ namespace AIDistort
         [Range(0, 20)]
         [DefaultValue(1)]
         [Label("$Mods.AIDistort.ShopTwoConfigLabel")]
-        [Tooltip("$Mods.AIDistort.ShopTwoConfigTooltip")]
+        //[Tooltip("$Mods.AIDistort.ShopTwoConfigTooltip")]
         public int ShopRandomScale;
 
         [DefaultValue(false)]
@@ -56,8 +57,8 @@ namespace AIDistort
         [Tooltip("$Mods.AIDistort.AIStyleRandomConfigTooltip")]
         public bool AIStyleRandomizer;
 
-        [Range(0, 240)]
-        [DefaultValue(0)]
+        [Range(-1, 112)]
+        [DefaultValue(-1)]
         [Label("$Mods.AIDistort.AIStyleRandomDelayConfigLabel")]
         [Tooltip("$Mods.AIDistort.AIStyleRandomDelayConfigTooltip")]
         public int AIStyleRandomizerDelay;
@@ -89,7 +90,7 @@ namespace AIDistort
 
         [DefaultValue(true)]
         [Label("$Mods.AIDistort.HotkeyTwoConfigLabel")]
-        [Tooltip("$Mods.AIDistort.HotkeyTwoConfigTooltip")]
+        //[Tooltip("$Mods.AIDistort.HotkeyTwoConfigTooltip")]
         public bool HotkeyCooldown;
 
         public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
@@ -106,5 +107,73 @@ namespace AIDistort
             }
             return false;
         }
+    }
+
+    [Label("$Mods.AIDistort.Configs.Title.PlayerRandomizerConfig")]
+    public class PlayerRandomizeConfig : ModConfig
+    {
+        public override ConfigScope Mode => ConfigScope.ServerSide;
+        public override void OnLoaded() => AIDistort.PlayerConfig = this;
+
+        [Header("$Mods.AIDistort.HeadRandomConfig")]
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.HairRandomLabel")]
+        public bool RandomizeHair;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.HairTwoRandomLabel")]
+        public bool RandomizeHairColor;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.EyeRandomLabel")]
+        public bool RandomizeEyeColor;
+
+        [Header("$Mods.AIDistort.BodyRandomConfig")]
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.ShirtRandomLabel")]
+        public bool RandomizeShirtColor;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.ShirtTwoRandomLabel")]
+        public bool RandomizeUndershirtColor;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.SkinRandomLabel")]
+        public bool RandomizeSkinColor;
+
+        [Header("$Mods.AIDistort.LowerBodyRandomConfig")]
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.PantsRandomLabel")]
+        public bool RandomizePantsColor;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.ShoesRandomLabel")]
+        public bool RandomizeShoeColor;
+
+        [Header("$Mods.AIDistort.MiscCharRandomConfig")]
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.GenderRandomLabel")]
+        public bool RandomizeGender;
+
+        [DefaultValue(false)]
+        [Label("$Mods.AIDistort.GenderVLabel")]
+        public bool IndicatorVGender;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.GenderALabel")]
+        public bool IndicatorAGender;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.StyleRandomLabel")]
+        public bool RandomizeClothes;
+
+        [DefaultValue(false)]
+        [Label("$Mods.AIDistort.NoRandomLabel")]
+        [Tooltip("$Mods.AIDistort.NoRandomTooltip")]
+        public bool NoRandom;
     }
 }

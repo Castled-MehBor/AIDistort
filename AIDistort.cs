@@ -1,5 +1,7 @@
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.UI;
+using Terraria;
 
 namespace AIDistort
 {
@@ -7,14 +9,18 @@ namespace AIDistort
 	{
         public static AIDistort Instance;
         internal static ModHotKey AIScrambleHotKey;
+        internal static ModHotKey PlayerRandomize;
         internal static ModHotKey ButcherHotKey;
         static internal AIDistort instance;
-        internal static AIConfig modConfig;
+        internal static AIScramblerConfig AIConfig;
+        internal static PlayerRandomizeConfig PlayerConfig;
+        private UserInterface _menuBar;
         public override void Load()
         {
             Instance = this;
             AIScrambleHotKey = RegisterHotKey("AI Scramble Toggle", "P");
             ButcherHotKey = RegisterHotKey("Butcher", "T");
+            PlayerRandomize = RegisterHotKey("Randomize Player", "O");
 
             #region Config Translations
             ModTranslation text = CreateTranslation("AIScrambleConfigLabel");
@@ -25,6 +31,16 @@ namespace AIDistort
             text = CreateTranslation("AIScrambleConfigTooltip");
             text.SetDefault("Toggle the scrambling of the AI.");
             text.AddTranslation(GameCulture.French, "Basculer la grande mélange d'IA.");
+            AddTranslation(text);
+
+            text = CreateTranslation("Configs.Title.NPCAIScramblerConfig");
+            text.SetDefault("NPC AI Scrambler");
+            text.AddTranslation(GameCulture.French, "Brouilleur PNJ AI");
+            AddTranslation(text);
+
+            text = CreateTranslation("Configs.Title.PlayerRandomizerConfig");
+            text.SetDefault("Randomize Player Hotkey");
+            text.AddTranslation(GameCulture.French, "Raccourci clavier du lecteur aléatoire");
             AddTranslation(text);
 
             text = CreateTranslation("TownNPCConfigLabel");
@@ -118,13 +134,13 @@ namespace AIDistort
             AddTranslation(text);
 
             text = CreateTranslation("AIStyleRandomDelayConfigLabel");
-            text.SetDefault("[Experimental] - AI Style Randomizer Delay");
-            text.AddTranslation(GameCulture.French, "[Expérimental] - Délai de Randomisation de Style AI");
+            text.SetDefault("AI Style Lock");
+            text.AddTranslation(GameCulture.French, "Verrouillage de Style IA");
             AddTranslation(text);
 
             text = CreateTranslation("AIStyleRandomDelayConfigTooltip");
-            text.SetDefault("Add a delay for the randomization of AI Styles, set to 0 to not change aiStyle more than once. This is measured in seconds.");
-            text.AddTranslation(GameCulture.French, "Ajoutez un délai pour la randomisation des Styles AI, mis à 0 pour ne pas changer aiStyle plus d'une fois. Ceci est mesuré en secondes.");
+            text.SetDefault("Every NPC will have this AI Style, set to -1 to disable this");
+            text.AddTranslation(GameCulture.French, "Chaque PNJ aura ce style d'IA, réglé sur -1 pour le désactiver");
             AddTranslation(text);
 
             text = CreateTranslation("PrideConfigLabel");
@@ -156,6 +172,78 @@ namespace AIDistort
             text.SetDefault("Scales the prices of randomized shops if the above config is enabled");
             text.AddTranslation(GameCulture.French, "Met à l'échelle les prix des magasins aléatoires si la configuration ci-dessus est activée");
             AddTranslation(text);
+
+            #region Player Randomize 
+            text = CreateTranslation("HairRandomLabel");
+            text.SetDefault("Randomize Hairstyle");
+            text.AddTranslation(GameCulture.French, "Style de Cheveux Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("HairTwoRandomLabel");
+            text.SetDefault("Randomize Hair Color");
+            text.AddTranslation(GameCulture.French, "Couleur de Cheveux Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("EyeRandomLabel");
+            text.SetDefault("Randomize Eye Color");
+            text.AddTranslation(GameCulture.French, "Couleur des yeux Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShirtRandomLabel");
+            text.SetDefault("Randomize Shirt Color");
+            text.AddTranslation(GameCulture.French, "Couleur de Chemise Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShirtTwoRandomLabel");
+            text.SetDefault("Randomize Undershirt Color");
+            text.AddTranslation(GameCulture.French, "Couleur de Maillot de Corps Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("SkinRandomLabel");
+            text.SetDefault("Randomize Skin Color");
+            text.AddTranslation(GameCulture.French, "Couleur de Peau Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("PantsRandomLabel");
+            text.SetDefault("Randomize Pants Color");
+            text.AddTranslation(GameCulture.French, "Couleur de Pantalons Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShoesRandomLabel");
+            text.SetDefault("Randomize Shoe Color");
+            text.AddTranslation(GameCulture.French, "Couleur de Chaussures Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("GenderRandomLabel");
+            text.SetDefault("Randomize Gender");
+            text.AddTranslation(GameCulture.French, "Genre aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("StyleRandomLabel");
+            text.SetDefault("Randomize Clothes Style");
+            text.AddTranslation(GameCulture.French, "Style de Vêtements Aléatoire");
+            AddTranslation(text);
+
+            text = CreateTranslation("GenderVLabel");
+            text.SetDefault("Visual Gender Indicator");
+            text.AddTranslation(GameCulture.French, "Indicateur Visuel de Genre");
+            AddTranslation(text);
+
+            text = CreateTranslation("GenderALabel");
+            text.SetDefault("Audio-based Gender Indicator");
+            text.AddTranslation(GameCulture.French, "Indicateur de Genre basé sur l'audio");
+            AddTranslation(text);
+
+            text = CreateTranslation("NoRandomLabel");
+            text.SetDefault("Prevent Randomization");
+            text.AddTranslation(GameCulture.French, "Empêcher la Randomisation");
+            AddTranslation(text);
+
+            text = CreateTranslation("NoRandomTooltip");
+            text.SetDefault("Your character will not change at all");
+            text.AddTranslation(GameCulture.French, "Votre personnage ne changera pas du tout");
+            AddTranslation(text);
+            #endregion
 
             /*
             text = CreateTranslation("GameplayConfigLabel");
@@ -189,13 +277,45 @@ namespace AIDistort
             text.SetDefault("[i:3663] [c/ff0000:AI Style Randomizer Configuration]");
             text.AddTranslation(GameCulture.French, "[i:3663] [c/ff0000:Configuration Randomiser de Style AI]");
             AddTranslation(text);
+
+            text = CreateTranslation("HeadRandomConfig");
+            text.SetDefault("[i:271] [c/ff0000:Head]");
+            text.AddTranslation(GameCulture.French, "[i:271] [c/ff0000:Tête]");
+            AddTranslation(text);
+
+            text = CreateTranslation("BodyRandomConfig");
+            text.SetDefault("[i:269] [c/ff8f00:Body]");
+            text.AddTranslation(GameCulture.French, "[i:269] [c/ff8f00:Corps]");
+            AddTranslation(text);
+
+            text = CreateTranslation("LowerBodyRandomConfig");
+            text.SetDefault("[i:270] [c/ffff00:Lower Body]");
+            text.AddTranslation(GameCulture.French, "[i:270] [c/ffff00:Corps D'inférieure]");
+            AddTranslation(text);
+
+            text = CreateTranslation("MiscCharRandomConfig");
+            text.SetDefault("[i:2756] [c/00fff3:Miscellaneous]");
+            text.AddTranslation(GameCulture.French, "[i:2756] [c/00fff3:Diverse]");
+            AddTranslation(text);
             #endregion
+
+            if (!Main.dedServ)
+            {
+                LoadClient();
+            }
         }
-        
+        private void LoadClient()
+        {
+            AddEquipTexture(null, EquipType.Head, "EmptyHead", "AIDistort/Items/EmptyTexture/EmptyHead_Head");
+            AddEquipTexture(null, EquipType.Body, "EmptyBody", "AIDistort/Items/EmptyTexture/EmptyBody_Body", "AIDistort/Items/EmptyTexture/EmptyBody_Arms");
+            AddEquipTexture(null, EquipType.Legs, "EmptyLegs", "AIDistort/Items/EmptyTexture/EmptyLegs_Legs");
+        }
+
         public override void Unload()
         {
             Instance = null;
-            modConfig = null;
+            AIConfig = null;
+            PlayerConfig = null;
         }
     }
 }

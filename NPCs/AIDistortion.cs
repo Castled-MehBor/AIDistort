@@ -9,7 +9,6 @@ namespace AIDistort.NPCs
 {
 	public class AIDistortion : GlobalNPC
 	{
-        private int aiDelayTimer;
         private bool aiChanged;
         public override bool InstancePerEntity => true;
         public readonly static List<int> dangerousAI = new List<int>()
@@ -36,8 +35,8 @@ namespace AIDistort.NPCs
         };
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
-            bool randomShop = GetInstance<AIConfig>().ShopRandomBoolean;
-            int priceScale = GetInstance<AIConfig>().ShopRandomScale;
+            bool randomShop = GetInstance<AIScramblerConfig>().ShopRandomBoolean;
+            int priceScale = GetInstance<AIScramblerConfig>().ShopRandomScale;
             if (randomShop)
             {
                 for (int i = 0; i < 49; i++)
@@ -50,15 +49,15 @@ namespace AIDistort.NPCs
         }
         public override void AI(NPC npc)
         {
-            bool doScramble = GetInstance<AIConfig>().AIScrambleBoolean;
-            bool civilianScramble = GetInstance<AIConfig>().TownNPCBoolean;
-            bool resetRare = GetInstance<AIConfig>().VersionTwoScrambler;
-            bool crashPrevent = GetInstance<AIConfig>().CrashPreventBoolean;
-            //bool gamer = GetInstance<AIConfig>().GameplayBoolean;
-            bool slimeBox = GetInstance<AIConfig>().SlimeBoxBoolean;
-            bool aiStyleChange = GetInstance<AIConfig>().AIStyleRandomizer;
-            bool rainbow = GetInstance<AIConfig>().PrideBoolean;
-            int aiDelay = GetInstance<AIConfig>().AIStyleRandomizerDelay;
+            bool doScramble = GetInstance<AIScramblerConfig>().AIScrambleBoolean;
+            bool civilianScramble = GetInstance<AIScramblerConfig>().TownNPCBoolean;
+            bool resetRare = GetInstance<AIScramblerConfig>().VersionTwoScrambler;
+            bool crashPrevent = GetInstance<AIScramblerConfig>().CrashPreventBoolean;
+            //bool gamer = GetInstance<AIScramblerConfig>().GameplayBoolean;
+            bool slimeBox = GetInstance<AIScramblerConfig>().SlimeBoxBoolean;
+            bool aiStyleChange = GetInstance<AIScramblerConfig>().AIStyleRandomizer;
+            bool rainbow = GetInstance<AIScramblerConfig>().PrideBoolean;
+            int aiDelay = GetInstance<AIScramblerConfig>().AIStyleRandomizerDelay; //Has been changed to an AI Style lock
             //Common Slime: if (npc.type == NPCID.BlueSlime || npc.type == NPCID.GreenSlime || npc.type == NPCID.PurpleSlime || npc.type == NPCID.YellowSlime || npc.type == NPCID.RedSlime || npc.type == NPCID.BlackSlime || npc.type == NPCID.JungleSlime || npc.type == NPCID.BabySlime || npc.type == NPCID.Pinky)
             //Dangerous AI Styles: if (npc.aiStyle != 20 || npc.aiStyle != 27 || npc.aiStyle != 28 || npc.aiStyle != 51 || npc.aiStyle != 52 || npc.aiStyle != 53)
             //Gameplay AI Styles: if (npc.aiStyle != 6 || npc.aiStyle != 37 || npc.aiStyle != 54 || npc.aiStyle != 77 || npc.aiStyle != 60 || npc.aiStyle != 84 || npc.aiStyle != 105 || npc.aiStyle != 106)
@@ -90,7 +89,7 @@ namespace AIDistort.NPCs
             {
                 if (crashPrevent)
                 {
-                    if (!Main.dedServ && doScramble && !npc.townNPC && Main.frameRate > GetInstance<AIConfig>().FrameLockInt && !dangerousAI.Contains(npc.aiStyle))
+                    if (!Main.dedServ && doScramble && !npc.townNPC && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && !dangerousAI.Contains(npc.aiStyle))
                     {
                         #region Scrambler
                         npc.localAI[0] = (float)Math.Pow(npc.ai[0], npc.localAI[2]);
@@ -376,7 +375,7 @@ namespace AIDistort.NPCs
                         #endregion
                     }
                 }
-                else if (!Main.dedServ && doScramble && !npc.townNPC && Main.frameRate > GetInstance<AIConfig>().FrameLockInt)
+                else if (!Main.dedServ && doScramble && !npc.townNPC && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt)
                 {
                     #region Scrambler
                     npc.localAI[0] = (float)Math.Pow(npc.ai[0], npc.localAI[2]);
@@ -665,7 +664,7 @@ namespace AIDistort.NPCs
             {
                 if (crashPrevent)
                 {
-                    if (!Main.dedServ && doScramble && Main.frameRate > GetInstance<AIConfig>().FrameLockInt && !dangerousAI.Contains(npc.aiStyle))
+                    if (!Main.dedServ && doScramble && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && !dangerousAI.Contains(npc.aiStyle))
                     {
                         #region Scrambler
                         npc.localAI[0] = (float)Math.Pow(npc.ai[0], npc.localAI[2]);
@@ -950,7 +949,7 @@ namespace AIDistort.NPCs
                         #endregion
                     }
                 }
-                else if (!Main.dedServ && doScramble && Main.frameRate > GetInstance<AIConfig>().FrameLockInt)
+                else if (!Main.dedServ && doScramble && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt)
                 {
                     #region Scrambler
                     npc.localAI[0] = (float)Math.Pow(npc.ai[0], npc.localAI[2]);
@@ -1235,22 +1234,19 @@ namespace AIDistort.NPCs
                     #endregion
                 }
             }
-            if (!Main.dedServ && aiStyleChange && Main.frameRate > GetInstance<AIConfig>().FrameLockInt)
+            if (!Main.dedServ && aiStyleChange && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt)
             {
-                aiDelayTimer++;
-                if (aiDelay == 0 && !aiChanged)
+                if (!aiChanged && aiDelay == -1)
                 {
                     npc.aiStyle = Main.rand.Next(0, 112);
                     aiChanged = true;
-                    aiDelayTimer = 0;
                 }
-                else if (aiDelay != 0 && aiDelayTimer * 60 > aiDelay)
+                else if (aiDelay != -1)
                 {
-                    npc.aiStyle = Main.rand.Next(0, 112);
-                    aiDelayTimer = 0;
+                    npc.aiStyle = aiDelay;
                 }
             }
-            if (!Main.dedServ && rainbow && Main.frameRate > GetInstance<AIConfig>().FrameLockInt)
+            if (!Main.dedServ && rainbow && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt)
             {
                 #region Rainbow Slime Code
                 float num2 = (float)Main.DiscoR / 255f;
@@ -1268,7 +1264,7 @@ namespace AIDistort.NPCs
                 #endregion
             }
             
-            if (!Main.dedServ && slimeBox && Main.frameRate > GetInstance<AIConfig>().FrameLockInt && commonSlime.Contains(npc.type))
+            if (!Main.dedServ && slimeBox && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && commonSlime.Contains(npc.type))
             {
                 npc.ai[1] = Main.rand.Next(0, 3930);
             }
