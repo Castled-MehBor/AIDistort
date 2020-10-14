@@ -175,5 +175,9 @@ namespace AIDistort
         [Label("$Mods.AIDistort.NoRandomLabel")]
         [Tooltip("$Mods.AIDistort.NoRandomTooltip")]
         public bool NoRandom;
+
+        [DefaultValue(typeof(Color), "1, 1, 1, 255")]
+        [Label("$Mods.AIDistort.SetColorL")]
+        public Color SetColor { get; set; }
     }
 }

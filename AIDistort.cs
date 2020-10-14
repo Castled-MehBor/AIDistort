@@ -1,7 +1,10 @@
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.UI;
+using Terraria.ID;
 using Terraria;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace AIDistort
 {
@@ -14,7 +17,6 @@ namespace AIDistort
         static internal AIDistort instance;
         internal static AIScramblerConfig AIConfig;
         internal static PlayerRandomizeConfig PlayerConfig;
-        private UserInterface _menuBar;
         public override void Load()
         {
             Instance = this;
@@ -242,6 +244,11 @@ namespace AIDistort
             text = CreateTranslation("NoRandomTooltip");
             text.SetDefault("Your character will not change at all");
             text.AddTranslation(GameCulture.French, "Votre personnage ne changera pas du tout");
+            AddTranslation(text);
+
+            text = CreateTranslation("SetColorL");
+            text.SetDefault("Set Color Command Output");
+            text.AddTranslation(GameCulture.French, "Sans Translationne sur la momente");
             AddTranslation(text);
             #endregion
 

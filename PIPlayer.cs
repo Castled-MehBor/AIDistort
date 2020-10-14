@@ -15,6 +15,10 @@ namespace AIDistort
         public bool rainbow;
         public bool reset;
         public bool resetClick;
+        #region 1.4 Dresser Commands
+        public bool skinC;
+        public bool eyeC;
+        #endregion
         #region Recovery of color state
         public int recoverState;
         public Color oldShirt;

@@ -1,6 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI;
+using Microsoft.Xna.Framework;
+using IL.Terraria.GameInput;
 
 namespace AIDistort
 {
@@ -163,6 +166,40 @@ namespace AIDistort
             player.GetModPlayer<PIPlayer>().reset = true;
             Main.NewText("Left Click to change clothes style.");
             Main.NewText("Right Click to stop");
+        }
+    }
+    class SetEye : ModCommand
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
+
+        public override string Command
+        {
+            get { return "seteye"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            Main.player[Main.myPlayer].eyeColor = ModContent.GetInstance<PlayerRandomizeConfig>().SetColor;
+        }
+    }
+    class SetSkin : ModCommand
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
+
+        public override string Command
+        {
+            get { return "setskin"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            Main.player[Main.myPlayer].skinColor = ModContent.GetInstance<PlayerRandomizeConfig>().SetColor;
         }
     }
 }
