@@ -33,6 +33,13 @@ namespace AIDistort.NPCs
             -9,
             -10
         };
+        public readonly static List<int> mechBoss = new List<int>()
+        {
+            //134,
+            127,
+            125,
+            126
+        };
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             bool randomShop = GetInstance<AIScramblerConfig>().ShopRandomBoolean;
@@ -57,11 +64,11 @@ namespace AIDistort.NPCs
             bool slimeBox = GetInstance<AIScramblerConfig>().SlimeBoxBoolean;
             bool aiStyleChange = GetInstance<AIScramblerConfig>().AIStyleRandomizer;
             bool rainbow = GetInstance<AIScramblerConfig>().PrideBoolean;
-            int aiDelay = GetInstance<AIScramblerConfig>().AIStyleRandomizerDelay; //Has been changed to an AI Style lock
-            //Common Slime: if (npc.type == NPCID.BlueSlime || npc.type == NPCID.GreenSlime || npc.type == NPCID.PurpleSlime || npc.type == NPCID.YellowSlime || npc.type == NPCID.RedSlime || npc.type == NPCID.BlackSlime || npc.type == NPCID.JungleSlime || npc.type == NPCID.BabySlime || npc.type == NPCID.Pinky)
-            //Dangerous AI Styles: if (npc.aiStyle != 20 || npc.aiStyle != 27 || npc.aiStyle != 28 || npc.aiStyle != 51 || npc.aiStyle != 52 || npc.aiStyle != 53)
-            //Gameplay AI Styles: if (npc.aiStyle != 6 || npc.aiStyle != 37 || npc.aiStyle != 54 || npc.aiStyle != 77 || npc.aiStyle != 60 || npc.aiStyle != 84 || npc.aiStyle != 105 || npc.aiStyle != 106)
-
+            int aiDelay = GetInstance<AIScramblerConfig>().AIStyleRandomizerDelay;
+                                                                                   //Has been changed to an AI Style lock
+                                                                                   //Common Slime: if (npc.type == NPCID.BlueSlime || npc.type == NPCID.GreenSlime || npc.type == NPCID.PurpleSlime || npc.type == NPCID.YellowSlime || npc.type == NPCID.RedSlime || npc.type == NPCID.BlackSlime || npc.type == NPCID.JungleSlime || npc.type == NPCID.BabySlime || npc.type == NPCID.Pinky)
+                                                                                   //Dangerous AI Styles: if (npc.aiStyle != 20 || npc.aiStyle != 27 || npc.aiStyle != 28 || npc.aiStyle != 51 || npc.aiStyle != 52 || npc.aiStyle != 53)
+                                                                                   //Gameplay AI Styles: if (npc.aiStyle != 6 || npc.aiStyle != 37 || npc.aiStyle != 54 || npc.aiStyle != 77 || npc.aiStyle != 60 || npc.aiStyle != 84 || npc.aiStyle != 105 || npc.aiStyle != 106)
             #region npc.ai[#]
             /*
             float npc.ai[0] = npc.ai[0];
@@ -1266,7 +1273,51 @@ namespace AIDistort.NPCs
             
             if (!Main.dedServ && slimeBox && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && commonSlime.Contains(npc.type))
             {
-                npc.ai[1] = Main.rand.Next(0, 3930);
+                npc.ai[1] = Main.rand.Next(0, ItemLoader.ItemCount);
+            }
+            #region Speedrun Code
+            if (AIWorld.speedrun)
+            {
+                if (npc.type == NPCID.CultistBoss || npc.type == NPCID.MoonLordCore)
+                {
+                    npc.dontTakeDamage = false;
+                }
+            }
+            #endregion
+        }
+        public override void NPCLoot(NPC npc)
+        {
+            if (AIWorld.speedrun)
+            {
+                #region Speedrun Code
+                if (npc.type == NPCID.KingSlime)
+                {
+                    Main.time = 54000;
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.EyeofCthulhu);
+                }
+                if (npc.type == NPCID.EyeofCthulhu)
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.QueenBee);
+                if (npc.type == NPCID.QueenBee)
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.SkeletronHead);
+                if (npc.type == NPCID.SkeletronHead)
+                {
+                    if (!Main.hardMode)
+                        Main.hardMode = true;
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.SkeletronPrime);
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.Spazmatism);
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.Retinazer);
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.TheDestroyer);
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.DukeFishron);
+                }
+                if (mechBoss.Contains(npc.type))
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.Plantera);
+                if (npc.type == NPCID.Plantera)
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.Golem);
+                if (npc.type == NPCID.Golem)
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.CultistBoss);
+                if (npc.type == NPCID.CultistBoss)
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.MoonLordCore);
+                #endregion
             }
         }
         public override bool CheckDead(NPC npc)

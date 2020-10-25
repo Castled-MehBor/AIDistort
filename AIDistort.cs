@@ -14,6 +14,8 @@ namespace AIDistort
         internal static ModHotKey AIScrambleHotKey;
         internal static ModHotKey PlayerRandomize;
         internal static ModHotKey ButcherHotKey;
+        //Sh!tass hotkey
+        internal static ModHotKey SpeedrunHotKey;
         static internal AIDistort instance;
         internal static AIScramblerConfig AIConfig;
         internal static PlayerRandomizeConfig PlayerConfig;
@@ -23,6 +25,8 @@ namespace AIDistort
             AIScrambleHotKey = RegisterHotKey("AI Scramble Toggle", "P");
             ButcherHotKey = RegisterHotKey("Butcher", "T");
             PlayerRandomize = RegisterHotKey("Randomize Player", "O");
+            //remove this when done
+            SpeedrunHotKey = RegisterHotKey("Don't use this", "B");
 
             #region Config Translations
             ModTranslation text = CreateTranslation("AIScrambleConfigLabel");

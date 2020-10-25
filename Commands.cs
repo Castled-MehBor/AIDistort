@@ -202,4 +202,62 @@ namespace AIDistort
             Main.player[Main.myPlayer].skinColor = ModContent.GetInstance<PlayerRandomizeConfig>().SetColor;
         }
     }
+    #region Feces Posterior
+    class Speedrun : ModCommand
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
+
+        public override string Command
+        {
+            get { return "speedrun"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            if (!AIWorld.speedrun)
+            {
+                AIWorld.speedrun = true;
+                Player player = Main.player[Main.myPlayer];
+                CombatText.NewText(player.getRect(), Color.Yellow, "Hey Feces Posterior, wanna see me speedrun?", false, false);
+            }
+            else
+            {
+                AIWorld.speedrun = false;
+            }
+        }
+    }
+    class ResetFlag : ModCommand
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
+
+        public override string Command
+        {
+            get { return "resetflag"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            NPC.downedSlimeKing = false;
+            NPC.downedBoss1 = false;
+            NPC.downedBoss2 = false;
+            NPC.downedQueenBee = false;
+            NPC.downedBoss3 = false;
+            Main.hardMode = false;
+            NPC.downedMechBoss1 = false;
+            NPC.downedMechBoss2 = false;
+            NPC.downedMechBoss3 = false;
+            NPC.downedFishron = false;
+            NPC.downedPlantBoss = false;
+            NPC.downedGolemBoss = false;
+            NPC.downedAncientCultist = false;
+            NPC.downedMoonlord = false;
+        }
+    }
+    #endregion
 }

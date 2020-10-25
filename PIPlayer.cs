@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
+using System;
 
 namespace AIDistort
 {
@@ -28,6 +29,8 @@ namespace AIDistort
         public Color oldPant;
         public Color oldHair;
         public Color oldSkin;
+        //Sh!tass bool
+        public bool speedrun;
         #endregion
         public int hotkeyCooldown;
         public override void PostUpdateEquips()
@@ -132,6 +135,25 @@ namespace AIDistort
                     player.delayUseItem = false;
                     Main.NewText("Reset Finished!");
                 }
+            }
+            if (speedrun)
+            {
+                player.statDefense = 999;
+                player.lifeRegen = 99;
+                player.meleeDamage *= 999f;
+                #region Buffs cause why not
+                player.AddBuff(BuffID.Ironskin, 3);
+                player.AddBuff(BuffID.MagicPower, 3);
+                player.AddBuff(BuffID.ManaRegeneration, 3);
+                player.AddBuff(BuffID.Swiftness, 3);
+                player.AddBuff(BuffID.AmmoReservation, 3);
+                player.AddBuff(BuffID.Wrath, 3);
+                player.AddBuff(BuffID.Rage, 3);
+                player.AddBuff(BuffID.WeaponImbueIchor, 3);
+                player.AddBuff(BuffID.Warmth, 3);
+                player.AddBuff(BuffID.Regeneration, 3);
+                player.AddBuff(BuffID.ShadowDodge, 3);
+                #endregion
             }
         }
         public override void ProcessTriggers(TriggersSet triggersSet)
