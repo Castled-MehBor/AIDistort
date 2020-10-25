@@ -18,7 +18,7 @@ NOTE: This is NOT AI Scramble, but rather changing to the AI STYLE.
 **This is separate from AI Scramble itself, and is highly unrecommended to be used alongside with.
 
 
-Loot Box Slimes: All slimes which can hold items will become sentient loot boxes, cycling through every vanilla item in the game, thus being able to drop any vanilla item in the game.
+Loot Box Slimes: All slimes which can hold items will become sentient loot boxes, cycling through every LOADED item in the game, thus being able to drop any item in the game, including modded items.
 *NOTE: This does not need the AI Scrambler config to be on, but it will be modified if it is.
 
 
@@ -46,3 +46,7 @@ to access exclusive haircuts, you have to get the stylist, and also defeat some 
 - Removed redundant config tooltips
 
 - Changed AI Style delay config to an AI Style Lock.
+
+v.0.1.2.2 - Hey Feces Posterior...
+- Added /speedrun command
+- The Lootbox Slime config will now cycle through every loaded item, being able to drop any item, including modded ones.
