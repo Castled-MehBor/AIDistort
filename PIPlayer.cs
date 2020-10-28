@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
-using System;
+using static Terraria.ModLoader.ModContent;
 
 namespace AIDistort
 {
@@ -45,16 +45,26 @@ namespace AIDistort
             }
             if (rainbow)
             {
+                bool rainbowHair = GetInstance<PlayerRandomizeConfig>().RainbowHair;
+                bool rainbowBody = GetInstance<PlayerRandomizeConfig>().RainbowBody;
+                bool rainbowClothes = GetInstance<PlayerRandomizeConfig>().RainbowClothes;
                 if (recoverState == 0)
                 {
                     recoverState = 1;
-                    oldEye = player.eyeColor;
-                    oldShirt = player.shirtColor;
-                    oldunderShirt = player.underShirtColor;
-                    oldSkin = player.skinColor;
-                    oldHair = player.hairColor;
-                    oldShoe = player.shoeColor;
-                    oldPant = player.pantsColor;
+                    if (rainbowHair)
+                        oldHair = player.hairColor;
+                    if (rainbowBody)
+                    {
+                        oldEye = player.eyeColor;
+                        oldSkin = player.skinColor;
+                    }
+                    if (rainbowClothes)
+                    {
+                        oldShirt = player.shirtColor;
+                        oldunderShirt = player.underShirtColor;
+                        oldShoe = player.shoeColor;
+                        oldPant = player.pantsColor;
+                    }
                 }
                 else if (recoverState == 1)
                 {
@@ -64,44 +74,60 @@ namespace AIDistort
                     num2 *= 1f;
                     num3 *= 1f;
                     num4 *= 1f;
-                    player.shirtColor.R = (byte)Main.DiscoR;
-                    player.shirtColor.G = (byte)Main.DiscoG;
-                    player.shirtColor.B = (byte)Main.DiscoB;
-                    player.shirtColor.A = 100;
-                    player.eyeColor.R = (byte)Main.DiscoR;
-                    player.eyeColor.G = (byte)Main.DiscoG;
-                    player.eyeColor.B = (byte)Main.DiscoB;
-                    player.eyeColor.A = 100;
-                    player.underShirtColor.R = (byte)Main.DiscoR;
-                    player.underShirtColor.G = (byte)Main.DiscoG;
-                    player.underShirtColor.B = (byte)Main.DiscoB;
-                    player.underShirtColor.A = 100;
-                    player.pantsColor.R = (byte)Main.DiscoR;
-                    player.pantsColor.G = (byte)Main.DiscoG;
-                    player.pantsColor.B = (byte)Main.DiscoB;
-                    player.pantsColor.A = 100;
-                    player.shoeColor.R = (byte)Main.DiscoR;
-                    player.shoeColor.G = (byte)Main.DiscoG;
-                    player.shoeColor.B = (byte)Main.DiscoB;
-                    player.shoeColor.A = 100;
-                    player.skinColor.R = (byte)Main.DiscoR;
-                    player.skinColor.G = (byte)Main.DiscoG;
-                    player.skinColor.B = (byte)Main.DiscoB;
-                    player.skinColor.A = 100;
-                    player.hairColor.R = (byte)Main.DiscoR;
-                    player.hairColor.G = (byte)Main.DiscoG;
-                    player.hairColor.B = (byte)Main.DiscoB;
-                    player.hairColor.A = 100;
+                    if (rainbowHair)
+                    {
+                        player.hairColor.R = (byte)Main.DiscoR;
+                        player.hairColor.G = (byte)Main.DiscoG;
+                        player.hairColor.B = (byte)Main.DiscoB;
+                        player.hairColor.A = 100;
+                    }
+                    if (rainbowBody)
+                    {
+                        player.skinColor.R = (byte)Main.DiscoR;
+                        player.skinColor.G = (byte)Main.DiscoG;
+                        player.skinColor.B = (byte)Main.DiscoB;
+                        player.skinColor.A = 100;
+                        player.eyeColor.R = (byte)Main.DiscoR;
+                        player.eyeColor.G = (byte)Main.DiscoG;
+                        player.eyeColor.B = (byte)Main.DiscoB;
+                        player.eyeColor.A = 100;
+                    }
+                    if (rainbowClothes)
+                    {
+                        player.shirtColor.R = (byte)Main.DiscoR;
+                        player.shirtColor.G = (byte)Main.DiscoG;
+                        player.shirtColor.B = (byte)Main.DiscoB;
+                        player.shirtColor.A = 100;
+                        player.underShirtColor.R = (byte)Main.DiscoR;
+                        player.underShirtColor.G = (byte)Main.DiscoG;
+                        player.underShirtColor.B = (byte)Main.DiscoB;
+                        player.underShirtColor.A = 100;
+                        player.pantsColor.R = (byte)Main.DiscoR;
+                        player.pantsColor.G = (byte)Main.DiscoG;
+                        player.pantsColor.B = (byte)Main.DiscoB;
+                        player.pantsColor.A = 100;
+                        player.shoeColor.R = (byte)Main.DiscoR;
+                        player.shoeColor.G = (byte)Main.DiscoG;
+                        player.shoeColor.B = (byte)Main.DiscoB;
+                        player.shoeColor.A = 100;
+                    }
                 }
                 else if (recoverState == 2)
                 {
-                    player.eyeColor = oldEye;
-                    player.shirtColor = oldShirt;
-                    player.underShirtColor = oldunderShirt;
-                    player.skinColor = oldSkin;
-                    player.hairColor = oldHair;
-                    player.shoeColor = oldShoe;
-                    player.pantsColor = oldPant;
+                    if (rainbowHair)
+                        player.hairColor = oldHair;
+                    if (rainbowBody)
+                    {
+                        player.skinColor = oldSkin;
+                        player.eyeColor = oldEye;
+                    }
+                    if (rainbowClothes)
+                    {
+                        player.shirtColor = oldShirt;
+                        player.underShirtColor = oldunderShirt;
+                        player.shoeColor = oldShoe;
+                        player.pantsColor = oldPant;
+                    }
                     rainbow = false;
                     recoverState = 0;
                 }
@@ -234,7 +260,7 @@ namespace AIDistort
                 }
             }
             #region Randomize Player Hotkey
-            if (AIDistort.PlayerRandomize.JustPressed && !ModContent.GetInstance<PlayerRandomizeConfig>().NoRandom && !reset)
+            if (AIDistort.PlayerRandomize.JustPressed && !ModContent.GetInstance<PlayerRandomizeConfig>().NoRandom && !reset && !rainbow)
             {
                 ItemLoader.UpdateVanitySet(player);
                 if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeEyeColor)

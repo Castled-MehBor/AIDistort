@@ -3,6 +3,13 @@ Please use the config menu if you want to change anything, as well as fix some p
 Castled's AI Scrambler contains all of the tools you need to completely distort NPC AI, ranging from randomizing AI Styles, loot box slimes and distorting the AI itself.
 Some of the things you can do include:
 
+Commands:
+- /rainbowchar, to give your player a super rainbow hue
+- /reset, to set your player to default presets
+- /clearhead, /clearbody and /clearleg, in case if you don't want to get Lamia Wraps, etc, and THERE ARE NO LOOPHOLES :wesmart:
+- /speedrun, :kappa:
+- /seteye, /setskin, since 1.4 dresser doesn't exist, use these and the color "config" in Player Randomizer config menu to change either eyes or skin to that color.
+- /resetflag, to reset all vanilla boss downed flags.
 
 AI Scramble: Using a completely randomized formula, the AI itself will be completely distorted, resulting in some bizzare experiences.
 *NOTE: This IS NOT aiStyle change, but rather change to the AI itself. 
@@ -21,6 +28,7 @@ NOTE: This is NOT AI Scramble, but rather changing to the AI STYLE.
 Loot Box Slimes: All slimes which can hold items will become sentient loot boxes, cycling through every LOADED item in the game, thus being able to drop any item in the game, including modded items.
 *NOTE: This does not need the AI Scrambler config to be on, but it will be modified if it is.
 
+Stat Randomizer: Randomize various traits of NPCs, which can lead to some... interesting results, to say the least.
 
 Rainbow NPCs: Feeling pride? Turn on this toggle to give every NPC a rainbow color effect similar to the Rainbow Slime.
 *NOTE: This does not need the AI Scrambler config to be on, but it might be modified if it is.
@@ -50,3 +58,9 @@ to access exclusive haircuts, you have to get the stylist, and also defeat some 
 v.0.1.2.2 - Hey Feces Posterior...
 - Added /speedrun command
 - The Lootbox Slime config will now cycle through every loaded item, being able to drop any item, including modded ones.
+
+v.0.1.2.3 - The Slime's Revenge!
+- Added a new config category: The Danger Zone.
+  > Randomize Stat and Pandora's Box Slime config
+- Updated Randomize Town NPC shop to now also be able to sell any loaded item when enabled
+- Added configs to now toggle certain areas that the /rainbowchar command will affect.

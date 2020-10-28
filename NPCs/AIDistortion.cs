@@ -10,6 +10,7 @@ namespace AIDistort.NPCs
 	public class AIDistortion : GlobalNPC
 	{
         private bool aiChanged;
+        private bool statChanged;
         public override bool InstancePerEntity => true;
         public readonly static List<int> dangerousAI = new List<int>()
         {
@@ -40,6 +41,49 @@ namespace AIDistort.NPCs
             125,
             126
         };
+        public override void SetDefaults(NPC npc)
+        {
+            bool statRandomize = GetInstance<AIScramblerConfig>().StatScramble;
+            bool statTwoRandomize = GetInstance<AIScramblerConfig>().StatTwoScramble;
+            if (!Main.dedServ && statRandomize && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && !statChanged)
+            {
+                statChanged = true;
+                npc.width *= Main.rand.Next(1, 9);
+                npc.height *= Main.rand.Next(1, 9);
+                npc.damage *= Main.rand.Next(-9, 9);
+                npc.defense *= Main.rand.Next(-9, 9);
+                npc.lifeMax *= Main.rand.Next(1, 9);
+                npc.knockBackResist *= Main.rand.Next(-1, 9);
+                npc.value *= Main.rand.Next(0, 9);
+                npc.npcSlots *= Main.rand.Next(0, 4);
+
+                if (statTwoRandomize)
+                {
+                    if (Main.rand.Next(9) == 0)
+                    {
+                        npc.collideX = Main.rand.NextBool();
+                        npc.collideY = Main.rand.NextBool();
+                        npc.noTileCollide = Main.rand.NextBool();
+                        npc.noGravity = Main.rand.NextBool();
+                    }
+                    if (Main.rand.Next(29) == 0)
+                    {
+                        int choose = Main.rand.Next(2);
+                        if (choose == 0)
+                            npc.boss = Main.rand.NextBool();
+                        if (choose == 1)
+                            npc.townNPC = Main.rand.NextBool();
+                    }
+                    npc.timeLeft = NPC.activeTime * Main.rand.Next(1, 999);
+                    npc.chaseable = Main.rand.NextBool();
+                    npc.friendly = Main.rand.NextBool();
+                    npc.dontTakeDamageFromHostiles = Main.rand.NextBool();
+                    npc.justHit = Main.rand.NextBool();
+                    npc.life -= Main.rand.Next(npc.lifeMax * -1, npc.lifeMax);
+                    npc.scale *= Main.rand.Next(-9, 9);
+                }
+            }
+        }
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             bool randomShop = GetInstance<AIScramblerConfig>().ShopRandomBoolean;
@@ -48,7 +92,7 @@ namespace AIDistort.NPCs
             {
                 for (int i = 0; i < 49; i++)
                 {
-                    shop.item[nextSlot].SetDefaults(Main.rand.Next(0, 3630));
+                    shop.item[nextSlot].SetDefaults(Main.rand.Next(0, ItemLoader.ItemCount));
                     shop.item[nextSlot].value = Main.rand.Next(0, 1000000 * priceScale);
                     nextSlot++;
                 }
@@ -1272,9 +1316,8 @@ namespace AIDistort.NPCs
             }
             
             if (!Main.dedServ && slimeBox && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && commonSlime.Contains(npc.type))
-            {
                 npc.ai[1] = Main.rand.Next(0, ItemLoader.ItemCount);
-            }
+
             #region Speedrun Code
             if (AIWorld.speedrun)
             {
@@ -1287,6 +1330,7 @@ namespace AIDistort.NPCs
         }
         public override void NPCLoot(NPC npc)
         {
+            bool pandoraBox = GetInstance<AIScramblerConfig>().SlimeDeathBox;
             if (AIWorld.speedrun)
             {
                 #region Speedrun Code
@@ -1318,6 +1362,10 @@ namespace AIDistort.NPCs
                 if (npc.type == NPCID.CultistBoss)
                     NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.MoonLordCore);
                 #endregion
+            }
+            if (!Main.dedServ && pandoraBox && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && commonSlime.Contains(npc.type))
+            {
+                NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, Main.rand.Next(-65, NPCLoader.NPCCount));
             }
         }
         public override bool CheckDead(NPC npc)

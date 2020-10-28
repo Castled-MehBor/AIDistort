@@ -109,24 +109,44 @@ namespace AIDistort
             text.AddTranslation(GameCulture.French, "Réinitialise l'IA moins fréquemment, ce qui donne un résultat plus unique.");
             AddTranslation(text);
 
+            text = CreateTranslation("StatConfigLabel");
+            text.SetDefault("NPC Stat Randomizer");
+            text.AddTranslation(GameCulture.French, "Randomiseur des statistiques de PNJ");
+            AddTranslation(text);
+
+            text = CreateTranslation("StatConfigTooltip");
+            text.SetDefault("Randomizes NPC Stats upon spawning");
+            text.AddTranslation(GameCulture.French, "Rend aléatoire les statistiques des PNJ lors de leur apparition");
+            AddTranslation(text);
+
+            text = CreateTranslation("StatTwoConfigLabel");
+            text.SetDefault("Special NPC Stat Randomizer");
+            text.AddTranslation(GameCulture.French, "Randomiseur des statistiques spéciales de PNJ");
+            AddTranslation(text);
+
+            text = CreateTranslation("StatTwoConfigTooltip");
+            text.SetDefault("Randomizes special NPC Stats upon spawning");
+            text.AddTranslation(GameCulture.French, "Rend aléatoire les statistiques spéciales des PNJ lors de leur apparition");
+            AddTranslation(text);
+
             text = CreateTranslation("SlimeConfigLabel");
             text.SetDefault("Loot Box Slimes");
             text.AddTranslation(GameCulture.French, "Geleés des Boîte à butin");
             AddTranslation(text);
 
             text = CreateTranslation("SlimeConfigTooltip");
-            text.SetDefault("'Common' Slimes will now become loot boxes, being able to drop any vanilla item");
-            text.AddTranslation(GameCulture.French, "Les geleés 'communs' deviendront désormais des coffres à butin, permettant de déposer n'importe quel objet vanille");
+            text.SetDefault("'Common' Slimes will now become loot boxes, being able to drop any item");
+            text.AddTranslation(GameCulture.French, "Les geleés 'communs' deviendront désormais des coffres à butin, permettant de déposer n'importe quel objet");
             AddTranslation(text);
 
-            text = CreateTranslation("SlimeConfigLabel");
-            text.SetDefault("Loot Box Slimes");
-            text.AddTranslation(GameCulture.French, "Geleés des Boîte à butin");
+            text = CreateTranslation("SlimeTwoConfigLabel");
+            text.SetDefault("Pandora's Box Slimes");
+            text.AddTranslation(GameCulture.French, "Geleés des Boîte à Pandore");
             AddTranslation(text);
 
-            text = CreateTranslation("SlimeConfigTooltip");
-            text.SetDefault("'Common' Slimes will now become loot boxes, being able to drop any vanilla item");
-            text.AddTranslation(GameCulture.French, "Les geleés 'communs' deviendront désormais des coffres à butin, permettant de déposer n'importe quel objet vanille");
+            text = CreateTranslation("SlimeTwoConfigTooltip");
+            text.SetDefault("'Common' Slimes will now become pandora's boxes, being able to summon any NPC on death");
+            text.AddTranslation(GameCulture.French, "Les gelées 'communes' deviendront désormais des coffres à butin, pouvant invoquer n'importe quel PNJ sur mort");
             AddTranslation(text);
 
             text = CreateTranslation("AIStyleRandomConfigLabel");
@@ -252,7 +272,18 @@ namespace AIDistort
 
             text = CreateTranslation("SetColorL");
             text.SetDefault("Set Color Command Output");
-            text.AddTranslation(GameCulture.French, "Sans Translationne sur la momente");
+            AddTranslation(text);
+
+            text = CreateTranslation("RainbowB");
+            text.SetDefault("Rainbow Command affects body");
+            AddTranslation(text);
+
+            text = CreateTranslation("RainbowH");
+            text.SetDefault("Rainbow Command affects hair");
+            AddTranslation(text);
+
+            text = CreateTranslation("RainbowC");
+            text.SetDefault("Rainbow Command affects clothes");
             AddTranslation(text);
             #endregion
 
@@ -307,6 +338,11 @@ namespace AIDistort
             text = CreateTranslation("MiscCharRandomConfig");
             text.SetDefault("[i:2756] [c/00fff3:Miscellaneous]");
             text.AddTranslation(GameCulture.French, "[i:2756] [c/00fff3:Diverse]");
+            AddTranslation(text);
+
+            text = CreateTranslation("SpecialConfig");
+            text.SetDefault("[i:580] [c/230000:The Danger Zone]");
+            text.AddTranslation(GameCulture.French, "[i:2756] [c/00fff3:La Zone Dangereuse]");
             AddTranslation(text);
             #endregion
 

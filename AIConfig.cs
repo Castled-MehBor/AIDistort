@@ -93,6 +93,23 @@ namespace AIDistort
         //[Tooltip("$Mods.AIDistort.HotkeyTwoConfigTooltip")]
         public bool HotkeyCooldown;
 
+        [Header("$Mods.AIDistort.SpecialConfig")]
+
+        [DefaultValue(false)]
+        [Label("$Mods.AIDistort.SlimeTwoConfigLabel")]
+        [Tooltip("$Mods.AIDistort.SlimeTwoConfigTooltip")]
+        public bool SlimeDeathBox;
+
+        [DefaultValue(false)]
+        [Label("$Mods.AIDistort.StatConfigLabel")]
+        [Tooltip("$Mods.AIDistort.StatConfigTooltip")]
+        public bool StatScramble;
+
+        [DefaultValue(false)]
+        [Label("$Mods.AIDistort.StatTwoConfigLabel")]
+        [Tooltip("$Mods.AIDistort.StatTwoConfigTooltip")]
+        public bool StatTwoScramble;
+
         public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
         {
             if (whoAmI == 0)
@@ -175,6 +192,18 @@ namespace AIDistort
         [Label("$Mods.AIDistort.NoRandomLabel")]
         [Tooltip("$Mods.AIDistort.NoRandomTooltip")]
         public bool NoRandom;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.RainbowH")]
+        public bool RainbowHair;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.RainbowB")]
+        public bool RainbowBody;
+
+        [DefaultValue(true)]
+        [Label("$Mods.AIDistort.RainbowC")]
+        public bool RainbowClothes;
 
         [DefaultValue(typeof(Color), "1, 1, 1, 255")]
         [Label("$Mods.AIDistort.SetColorL")]
