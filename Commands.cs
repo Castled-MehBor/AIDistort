@@ -260,4 +260,22 @@ namespace AIDistort
         }
     }
     #endregion
+    class ResetList : ModCommand
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
+
+        public override string Command
+        {
+            get { return "clearList"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            AIDistort.accessoryList.Clear();
+            AIDistort.accessoryList.Add(23);
+        }
+    }
 }

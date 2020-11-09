@@ -189,9 +189,9 @@ namespace AIDistort
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     #region Hotkey
-                    if (!ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean)
+                    if (!GetInstance<AIScramblerConfig>().AIScrambleBoolean)
                     {
-                        ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean = true;
+                        GetInstance<AIScramblerConfig>().AIScrambleBoolean = true;
                         if (Main.dedServ)
                         {
                             NetworkText text = NetworkText.FromFormattable("[c/0AFF00:AI Scramble is ON!]");
@@ -201,14 +201,14 @@ namespace AIDistort
                         {
                             Main.NewText("[c/0AFF00:AI Scramble is ON!]");
                         }
-                        if (ModContent.GetInstance<AIScramblerConfig>().HotkeyCooldown)
+                        if (GetInstance<AIScramblerConfig>().HotkeyCooldown)
                         {
                             hotkeyCooldown = 600;
                         }
                     }
-                    else if (ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean)
+                    else if (GetInstance<AIScramblerConfig>().AIScrambleBoolean)
                     {
-                        ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean = false;
+                        GetInstance<AIScramblerConfig>().AIScrambleBoolean = false;
                         if (Main.dedServ)
                         {
                             NetworkText text = NetworkText.FromFormattable("[c/FF0000:AI Scramble is OFF!]");
@@ -218,19 +218,19 @@ namespace AIDistort
                         {
                             Main.NewText("[c/FF0000:AI Scramble is OFF!]");
                         }
-                        if (ModContent.GetInstance<AIScramblerConfig>().HotkeyCooldown)
+                        if (GetInstance<AIScramblerConfig>().HotkeyCooldown)
                         {
                             hotkeyCooldown = 600;
                         }
                     }
                     #endregion
                 }
-                else if (Main.netMode == NetmodeID.MultiplayerClient && ModContent.GetInstance<AIScramblerConfig>().ClientHotkeyPermission)
+                else if (Main.netMode == NetmodeID.MultiplayerClient && GetInstance<AIScramblerConfig>().ClientHotkeyPermission)
                 {
                     #region Hotkey
-                    if (!ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean)
+                    if (!GetInstance<AIScramblerConfig>().AIScrambleBoolean)
                     {
-                        ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean = true;
+                        GetInstance<AIScramblerConfig>().AIScrambleBoolean = true;
                         if (Main.dedServ)
                         {
                             NetworkText text = NetworkText.FromFormattable("[c/0AFF00:AI Scramble is ON!]");
@@ -242,9 +242,9 @@ namespace AIDistort
                         }
                         hotkeyCooldown = 600;
                     }
-                    else if (ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean)
+                    else if (GetInstance<AIScramblerConfig>().AIScrambleBoolean)
                     {
-                        ModContent.GetInstance<AIScramblerConfig>().AIScrambleBoolean = false;
+                        GetInstance<AIScramblerConfig>().AIScrambleBoolean = false;
                         if (Main.dedServ)
                         {
                             NetworkText text = NetworkText.FromFormattable("[c/FF0000:AI Scramble is OFF!]");
@@ -260,24 +260,37 @@ namespace AIDistort
                 }
             }
             #region Randomize Player Hotkey
-            if (AIDistort.PlayerRandomize.JustPressed && !ModContent.GetInstance<PlayerRandomizeConfig>().NoRandom && !reset && !rainbow)
+            if (AIDistort.PlayerRandomize.JustPressed && !GetInstance<PlayerRandomizeConfig>().NoRandom && !reset && !rainbow)
             {
                 ItemLoader.UpdateVanitySet(player);
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeEyeColor)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeEyeColor)
                     player.eyeColor = randomizeColor();
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeSkinColor)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeSkinColor)
+                {
                     player.skinColor = randomizeColor();
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeShoeColor)
+                    if (GetInstance<PlayerRandomizeConfig>().SkinChangeType)
+                    {
+                        float num13 = (float)Main.rand.Next(60, 120) * 0.01f;
+                        if (num13 > 1f)
+                        {
+                            num13 = 1f;
+                        }
+                        player.skinColor.R = (byte)((float)Main.rand.Next(240, 255) * num13);
+                        player.skinColor.G = (byte)((float)Main.rand.Next(110, 140) * num13);
+                        player.skinColor.B = (byte)((float)Main.rand.Next(75, 110) * num13);
+                    }
+                }
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeShoeColor)
                     player.shoeColor = randomizeColor();
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizePantsColor)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizePantsColor)
                     player.pantsColor = randomizeColor();
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeShirtColor)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeShirtColor)
                     player.shirtColor = randomizeColor();
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeUndershirtColor)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeUndershirtColor)
                     player.underShirtColor = randomizeColor();
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeHairColor)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeHairColor)
                     player.hairColor = randomizeColor();
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeHair)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeHair)
                 {
                     if (player.name == "The Chosen One")
                     {
@@ -303,17 +316,17 @@ namespace AIDistort
                         }
                     }
                 }
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeClothes)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeClothes)
                     CycleClothingStyle(player);
-                if (ModContent.GetInstance<PlayerRandomizeConfig>().RandomizeGender)
+                if (GetInstance<PlayerRandomizeConfig>().RandomizeGender)
                 {
                     int gender = Main.rand.Next(2);
                     if (gender == 0)
                     {
                         player.Male = true;
-                        if (ModContent.GetInstance<PlayerRandomizeConfig>().IndicatorAGender)
+                        if (GetInstance<PlayerRandomizeConfig>().IndicatorAGender)
                             Main.PlaySound(SoundID.PlayerHit, player.position);
-                        if (ModContent.GetInstance<PlayerRandomizeConfig>().IndicatorVGender)
+                        if (GetInstance<PlayerRandomizeConfig>().IndicatorVGender)
                         {
                             for (int i = 0; i < 25; i++)
                             {
@@ -329,9 +342,9 @@ namespace AIDistort
                     if (gender == 1)
                     {
                         player.Male = false;
-                        if (ModContent.GetInstance<PlayerRandomizeConfig>().IndicatorAGender)
+                        if (GetInstance<PlayerRandomizeConfig>().IndicatorAGender)
                             Main.PlaySound(SoundID.FemaleHit, player.position);
-                        if (ModContent.GetInstance<PlayerRandomizeConfig>().IndicatorVGender)
+                        if (GetInstance<PlayerRandomizeConfig>().IndicatorVGender)
                         {
                             for (int i = 0; i < 25; i++)
                             {

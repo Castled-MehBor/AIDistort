@@ -64,3 +64,5 @@ v.0.1.2.3 - The Slime's Revenge!
   > Randomize Stat and Pandora's Box Slime config
 - Updated Randomize Town NPC shop to now also be able to sell any loaded item when enabled
 - Added configs to now toggle certain areas that the /rainbowchar command will affect.
+- Added experimental config for Slime Box, however this will be updated in the future as I forgot to update this mod, and learned how to properly use lists
+- Added a config to toggle the 1.4 skin randomizer

@@ -11,6 +11,7 @@ namespace AIDistort.NPCs
 	{
         private bool aiChanged;
         private bool statChanged;
+        public int extra { get; set; }
         public override bool InstancePerEntity => true;
         public readonly static List<int> dangerousAI = new List<int>()
         {
@@ -100,15 +101,18 @@ namespace AIDistort.NPCs
         }
         public override void AI(NPC npc)
         {
+            int boxType = GetInstance<AIScramblerConfig>().SlimeBoxType;
+
             bool doScramble = GetInstance<AIScramblerConfig>().AIScrambleBoolean;
             bool civilianScramble = GetInstance<AIScramblerConfig>().TownNPCBoolean;
             bool resetRare = GetInstance<AIScramblerConfig>().VersionTwoScrambler;
             bool crashPrevent = GetInstance<AIScramblerConfig>().CrashPreventBoolean;
             //bool gamer = GetInstance<AIScramblerConfig>().GameplayBoolean;
-            bool slimeBox = GetInstance<AIScramblerConfig>().SlimeBoxBoolean;
+            //bool slimeBox = GetInstance<AIScramblerConfig>().SlimeBoxBoolean;
             bool aiStyleChange = GetInstance<AIScramblerConfig>().AIStyleRandomizer;
             bool rainbow = GetInstance<AIScramblerConfig>().PrideBoolean;
             int aiDelay = GetInstance<AIScramblerConfig>().AIStyleRandomizerDelay;
+
                                                                                    //Has been changed to an AI Style lock
                                                                                    //Common Slime: if (npc.type == NPCID.BlueSlime || npc.type == NPCID.GreenSlime || npc.type == NPCID.PurpleSlime || npc.type == NPCID.YellowSlime || npc.type == NPCID.RedSlime || npc.type == NPCID.BlackSlime || npc.type == NPCID.JungleSlime || npc.type == NPCID.BabySlime || npc.type == NPCID.Pinky)
                                                                                    //Dangerous AI Styles: if (npc.aiStyle != 20 || npc.aiStyle != 27 || npc.aiStyle != 28 || npc.aiStyle != 51 || npc.aiStyle != 52 || npc.aiStyle != 53)
@@ -1315,9 +1319,16 @@ namespace AIDistort.NPCs
                 #endregion
             }
             
-            if (!Main.dedServ && slimeBox && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && commonSlime.Contains(npc.type))
+            if (!Main.dedServ && boxType == 1 && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && commonSlime.Contains(npc.type))
+            {
+                AIDistort.accessoryList.Clear();
                 npc.ai[1] = Main.rand.Next(0, ItemLoader.ItemCount);
-
+            }
+            if (!Main.dedServ && boxType > 1 && Main.frameRate > GetInstance<AIScramblerConfig>().FrameLockInt && commonSlime.Contains(npc.type))
+            {
+                int itemDef = Main.rand.Next(AIDistort.accessoryList);
+                npc.ai[1] = itemDef;
+            }
             #region Speedrun Code
             if (AIWorld.speedrun)
             {

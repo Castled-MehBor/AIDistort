@@ -3,31 +3,40 @@ using Terraria.Localization;
 using Terraria.UI;
 using Terraria.ID;
 using Terraria;
+using System.Collections.Generic;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 namespace AIDistort
 {
-	public class AIDistort : Mod
-	{
+    public class AIDistort : Mod
+    {
         public static AIDistort Instance;
+        public static bool accessoryLoaded;
         internal static ModHotKey AIScrambleHotKey;
         internal static ModHotKey PlayerRandomize;
         internal static ModHotKey ButcherHotKey;
         //Sh!tass hotkey
         internal static ModHotKey SpeedrunHotKey;
-        static internal AIDistort instance;
         internal static AIScramblerConfig AIConfig;
         internal static PlayerRandomizeConfig PlayerConfig;
+        #region Item Loader List
+        public readonly static List<int> accessoryList = new List<int>()
+        {
+
+        };
+        #endregion
         public override void Load()
         {
+            ResetLists();
             Instance = this;
+            #region Hotkeys
             AIScrambleHotKey = RegisterHotKey("AI Scramble Toggle", "P");
             ButcherHotKey = RegisterHotKey("Butcher", "T");
             PlayerRandomize = RegisterHotKey("Randomize Player", "O");
             //remove this when done
             SpeedrunHotKey = RegisterHotKey("Don't use this", "B");
-
+            #endregion
             #region Config Translations
             ModTranslation text = CreateTranslation("AIScrambleConfigLabel");
             text.SetDefault("AI Scrambling");
@@ -37,6 +46,22 @@ namespace AIDistort
             text = CreateTranslation("AIScrambleConfigTooltip");
             text.SetDefault("Toggle the scrambling of the AI.");
             text.AddTranslation(GameCulture.French, "Basculer la grande mélange d'IA.");
+            AddTranslation(text);
+
+            text = CreateTranslation("SlimeBoxType");
+            text.SetDefault("Slime Lootbox Type");
+            AddTranslation(text);
+
+            text = CreateTranslation("SlimeBoxTypeTooltip");
+            text.SetDefault("Slimes will become sentient loot boxes. \n0 = No effect \n1 = Any Item \n2 = Accessories \n3 = Consumables \n4 = Weapons \n5 = Placeable \n6 = Any selected (Anything hovered over, etc.)");
+            AddTranslation(text);
+
+            text = CreateTranslation("SlimeTwoConfigLabel");
+            text.SetDefault("Pandora's Box Slimes");
+            AddTranslation(text);
+
+            text = CreateTranslation("SlimeTwoConfigTooltip");
+            text.SetDefault("On death, slimes will summon any random NPC");
             AddTranslation(text);
 
             text = CreateTranslation("Configs.Title.NPCAIScramblerConfig");
@@ -128,7 +153,7 @@ namespace AIDistort
             text.SetDefault("Randomizes special NPC Stats upon spawning");
             text.AddTranslation(GameCulture.French, "Rend aléatoire les statistiques spéciales des PNJ lors de leur apparition");
             AddTranslation(text);
-
+            /*
             text = CreateTranslation("SlimeConfigLabel");
             text.SetDefault("Loot Box Slimes");
             text.AddTranslation(GameCulture.French, "Geleés des Boîte à butin");
@@ -143,6 +168,7 @@ namespace AIDistort
             text.SetDefault("Pandora's Box Slimes");
             text.AddTranslation(GameCulture.French, "Geleés des Boîte à Pandore");
             AddTranslation(text);
+            }*/
 
             text = CreateTranslation("SlimeTwoConfigTooltip");
             text.SetDefault("'Common' Slimes will now become pandora's boxes, being able to summon any NPC on death");
@@ -362,7 +388,17 @@ namespace AIDistort
         {
             Instance = null;
             AIConfig = null;
+            ResetLists();
             PlayerConfig = null;
+        }
+        public override void PreSaveAndQuit()
+        {
+            ResetLists();
+        }
+        private void ResetLists()
+        {
+            accessoryLoaded = false;
+            accessoryList.Clear();
         }
     }
 }

@@ -17,17 +17,16 @@ namespace AIDistort
         //[Tooltip("$Mods.AIDistort.AIScrambleConfigTooltip")]
         public bool AIScrambleBoolean;
 
-        /*
-        [DefaultValue(false)]
-        [Label("$Mods.AIDistort.GameplayConfigLabel")]
-        [Tooltip("$Mods.AIDistort.GameplayConfigTooltip")]
-        public bool GameplayBoolean;
-        }*/
-
         [DefaultValue(false)]
         [Label("$Mods.AIDistort.TownNPCConfigLabel")]
         //[Tooltip("$Mods.AIDistort.TownNPCConfigTooltip")]
         public bool TownNPCBoolean;
+
+        [Range(0, 6)]
+        [DefaultValue(0)]
+        [Label("$Mods.AIDistort.SlimeBoxType")]
+        [Tooltip("$Mods.AIDistort.SlimeBoxTypeTooltip")]
+        public int SlimeBoxType;
 
         [DefaultValue(false)]
         [Label("$Mods.AIDistort.ShopConfigLabel")]
@@ -40,10 +39,12 @@ namespace AIDistort
         //[Tooltip("$Mods.AIDistort.ShopTwoConfigTooltip")]
         public int ShopRandomScale;
 
+        /*
         [DefaultValue(false)]
         [Label("$Mods.AIDistort.SlimeConfigLabel")]
         [Tooltip("$Mods.AIDistort.SlimeConfigTooltip")]
         public bool SlimeBoxBoolean;
+        }*/
 
         [DefaultValue(false)]
         [Label("$Mods.AIDistort.PrideConfigLabel")]
@@ -115,6 +116,8 @@ namespace AIDistort
             if (whoAmI == 0)
             {
                 message = "Changes accepted!";
+                AIDistort.accessoryLoaded = false;
+                AIDistort.accessoryList.Clear();
                 return true;
             }
             if (whoAmI != 0)
@@ -159,6 +162,11 @@ namespace AIDistort
         [DefaultValue(true)]
         [Label("$Mods.AIDistort.SkinRandomLabel")]
         public bool RandomizeSkinColor;
+
+        [DefaultValue(false)]
+        [Label("Use 1.4 Skin Randomizer")]
+        [Tooltip("Set to true to use the 1.4 Skin Randomizer Style (realistic skin color)\n Set to false to set to any color")]
+        public bool SkinChangeType;
 
         [Header("$Mods.AIDistort.LowerBodyRandomConfig")]
 
@@ -208,5 +216,20 @@ namespace AIDistort
         [DefaultValue(typeof(Color), "1, 1, 1, 255")]
         [Label("$Mods.AIDistort.SetColorL")]
         public Color SetColor { get; set; }
+
+        public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
+        {
+            if (whoAmI == 0)
+            {
+                message = "Changes accepted!";
+                return true;
+            }
+            if (whoAmI != 0)
+            {
+                message = "You are not allowed to change AIConfig.modConfig";
+                return false;
+            }
+            return false;
+        }
     }
 }
