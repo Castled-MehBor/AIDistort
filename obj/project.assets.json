@@ -31,32 +31,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Owner\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Mehran\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\AIDistort\\AIDistort.csproj",
+      "projectUniqueName": "C:\\Users\\Mehran\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\AIDistort\\AIDistort.csproj",
       "projectName": "AIDistort",
-      "projectPath": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\AIDistort\\AIDistort.csproj",
-      "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\AIDistort\\obj\\",
+      "projectPath": "C:\\Users\\Mehran\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\AIDistort\\AIDistort.csproj",
+      "packagesPath": "C:\\Users\\Mehran\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mehran\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\AIDistort\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Mehran\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net45"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net45": {
+          "targetAlias": "net45",
           "projectReferences": {}
         }
       },
@@ -68,13 +67,14 @@
     },
     "frameworks": {
       "net45": {
+        "targetAlias": "net45",
         "dependencies": {
           "tModLoader.CodeAssist": {
             "target": "Package",
             "version": "[0.1.*, )"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

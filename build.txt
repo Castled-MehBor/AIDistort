@@ -1,5 +1,5 @@
 displayName = Castled's AI Scrambler
 author = Castled
-version = 0.1.2.4
+version = 0.1.2.5
 homepage = https://forums.terraria.org/index.php?threads/castleds-ai-scrambler.98505/
 buildIgnore = build.txt, .gitattributes, .gitignore, .git/, .vs/, .idea/, bin/, obj/, Thumbs.db, Built, Built/, Built/wip, Built/wip/, *.tmod

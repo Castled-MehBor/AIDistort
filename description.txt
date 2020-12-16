@@ -66,3 +66,5 @@ v.0.1.2.3 - The Slime's Revenge!
 - Added configs to now toggle certain areas that the /rainbowchar command will affect.
 - Added experimental config for Slime Box, however this will be updated in the future as I forgot to update this mod, and learned how to properly use lists
 - Added a config to toggle the 1.4 skin randomizer
+
+v.0.1.2.5 - Just a test update to see if I can publish existing mods on a new laptop
